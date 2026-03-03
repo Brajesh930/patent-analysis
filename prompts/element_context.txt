@@ -1,0 +1,16 @@
+Seed text:
+{{SEED_TEXT}}
+
+Key element:
+{{ELEMENT}}
+
+Please analyze this key element in the context of the seed patent text. Return STRICT JSON (no markdown, no explanation):
+
+{
+  "definition": "Technical definition of the element",
+  "synonyms": ["alternative term 1", "alternative term 2"],
+  "explicit_markers": ["exact phrase 1", "exact phrase 2"],
+  "implicit_markers": ["concept 1", "concept 2"],
+  "boundaries": ["what it includes", "what it excludes"],
+  "match_cues": ["search term 1", "search term 2"]
+}

@@ -1,0 +1,33 @@
+Key element contexts JSON:
+{{CONTEXTS_JSON}}
+
+Candidate patent text:
+{{PATENT_TEXT}}
+
+Please screen this patent for relevance to the defined key elements. Be conservative and evidence-based. Return STRICT JSON (no markdown, no explanation):
+
+{
+  "overall": {
+    "label": "relevant|borderline|not_relevant",
+    "score": 0,
+    "reasoning_short": "1-3 sentence summary"
+  },
+  "per_element": [
+    {
+      "element_index": 0,
+      "label": "explicit|implicit|partial|none",
+      "score": 0,
+      "rationale": "Why this label",
+      "evidence": [
+        {
+          "location": "claim X or section reference",
+          "snippet": "quote from patent"
+        }
+      ]
+    }
+  ],
+  "notes": {
+    "uncertainties": ["what needs manual review"],
+    "missing_sections": ["abstract/claims/etc if missing"]
+  }
+}
