@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Patent Info Viewer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 2em;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2.5em 3em;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 1em;
+            font-weight: 700;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+            color: #555;
+        }
+        textarea, input[type="text"], select {
+            width: 100%;
+            padding: 0.75em;
+            font-size: 1.1em;
+            border: 1.5px solid #ccc;
+            border-radius: 6px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 160px;
+            margin-bottom: 1em;
+        }
+        input[type="text"], select {
+            height: 40px;
+            margin-bottom: 1em;
+        }
+        textarea:focus, input[type="text"]:focus, select:focus {
+            border-color: #1a73e8;
+            outline: none;
+        }
+        button {
+            margin-top: 0.5em;
+            width: 100%;
+            padding: 0.85em;
+            font-size: 1.2em;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 3px 8px rgba(26, 115, 232, 0.4);
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #155ab6;
+        }
+        #status, #listStatus {
+            margin-top: 1.2em;
+            font-size: 1.05em;
+            color: #666;
+            min-height: 1.5em;
+            text-align: center;
+            font-style: italic;
+        }
+        .patent-info {
+            margin-top: 2em;
+            border-top: 2px solid #e0e0e0;
+            padding-top: 1.5em;
+        }
+        .patent-item {
+            margin-bottom: 2em;
+            padding-bottom: 1.5em;
+            border-bottom: 1px solid #ddd;
+        }
+        .patent-title {
+            font-weight: 700;
+            font-size: 1.4em;
+            color: #1a1a1a;
+            margin-bottom: 0.3em;
+        }
+        .patent-meta {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 0.8em;
+            font-style: normal;
+        }
+        .patent-meta span {
+            display: inline-block;
+            margin-right: 1.5em;
+        }
+        .patent-abstract {
+            font-size: 1.05em;
+            color: #444;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        .error {
+            color: #d93025;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        .section {
+            margin-top: 3em;
+            padding-top: 2em;
+            border-top: 3px solid #1a73e8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Patent Info Viewer</h1>
+
+        <section>
+            <label for="patentNumbers">Enter patent numbers (comma or newline separated):</label>
+            <textarea id="patentNumbers" placeholder="e.g. WO-2001003468-A2, US10741160B1"></textarea>
+            <label>Exclude patents from saved lists:</label>
+            <div id="excludeListsContainer" style="max-height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 0.5em; border-radius: 6px; margin-bottom: 1em;"></div>
+            <button id="fetchBtn">Fetch Patent Info</button>
+            <div id="status"></div>
+            <div id="results" class="patent-info"></div>
+        </section>
+
+        <section class="section">
+            <button id="goToNotListEditBtn" style="margin-bottom: 1em; background-color: #555; color: white; border: none; padding: 0.5em 1em; border-radius: 6px; cursor: pointer;">Go to Patent Not List Edit</button>
+        </section>
+    </div>
+
+    <script>
+        const fetchBtn = document.getElementById('fetchBtn');
+        const patentNumbersTextarea = document.getElementById('patentNumbers');
+        const statusDiv = document.getElementById('status');
+        const resultsDiv = document.getElementById('results');
+        const excludeListsContainer = document.getElementById('excludeListsContainer');
+
+        const goToNotListEditBtn = document.getElementById('goToNotListEditBtn');
+        goToNotListEditBtn.addEventListener('click', () => {
+            window.location.href = 'patent_not_list_edit.html';
+        });
+
+        function loadSavedLists() {
+            const savedLists = JSON.parse(localStorage.getItem('patentFamilyLists') || '{}');
+            excludeListsContainer.innerHTML = '';
+            for (const listName in savedLists) {
+                const label = document.createElement('label');
+                label.style.display = 'block';
+                label.style.marginBottom = '0.3em';
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = listName;
+                checkbox.style.marginRight = '0.5em';
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(listName));
+                excludeListsContainer.appendChild(label);
+            }
+        }
+
+        // Add event listener for closing the full text overlay
+        document.addEventListener('DOMContentLoaded', () => {
+            const closeBtn = document.getElementById('fullTextOverlayCloseBtn');
+            closeBtn.addEventListener('click', () => {
+                hideFullTextOverlay();
+            });
+
+            // Also close overlay when clicking outside the content area
+            const overlay = document.getElementById('fullTextOverlay');
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    hideFullTextOverlay();
+                }
+            });
+        });
+
+        async function transformPatentNumbers(patentNumbers) {
+            const apiUrl = 'https://api.unifiedpatents.com/helpers/transform-publication-numbers';
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ publications: patentNumbers })
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                if (!Array.isArray(data)) {
+                    throw new Error('Invalid response from transform API');
+                }
+                return data;
+            } catch (error) {
+                throw new Error(error.message || 'Failed to transform patent numbers');
+            }
+        }
+
+        async function fetchPatentData(patentNo) {
+            const apiUrl = `https://api.unifiedpatents.com/patents/${encodeURIComponent(patentNo)}?with_cases=true`;
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                return { error: error.message || 'Failed to fetch patent data' };
+            }
+        }
+
+        function displayPatentInfo(patentNo, data, displayedFamilyIds, excludedFamilyIds) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'patent-item';
+
+            if (data.error) {
+                itemDiv.innerHTML = `<div class="error">Error fetching data for patent ${patentNo}: ${data.error}</div>`;
+            } else if (!data._source) {
+                itemDiv.innerHTML = `<div class="error">No data found for patent ${patentNo}</div>`;
+            } else {
+                const source = data._source;
+                const familyId = source.family_id || null;
+                if (familyId && (displayedFamilyIds.has(familyId) || excludedFamilyIds.has(familyId))) {
+                    // Skip duplicate or excluded family_id
+                    return false;
+                }
+                if (familyId) {
+                    displayedFamilyIds.add(familyId);
+                }
+                const title = source.title || 'No title available';
+                const abstract = source.abstract || 'No abstract available';
+                const pubNumber = source.publication_number || 'N/A';
+                const priorityDate = source.priority_date ? new Date(source.priority_date).toLocaleDateString() : 'N/A';
+                const pubDate = source.publication_date ? new Date(source.publication_date).toLocaleDateString() : 'N/A';
+
+                itemDiv.innerHTML = `
+                    <div class="patent-title">${title}</div>
+                    <div class="patent-meta">
+                        <span><strong>Patent No:</strong> ${pubNumber}</span>
+                        <span><strong>Priority Date:</strong> ${priorityDate}</span>
+                        <span><strong>Publication Date:</strong> ${pubDate}</span>
+                    </div>
+                    <div class="patent-abstract">${abstract}</div>
+                    <button class="view-full-text-btn" style="margin-top: 0.5em; padding: 0.5em 1em; font-size: 1em; cursor: pointer;">View Full Text</button>
+                `;
+                resultsDiv.appendChild(itemDiv);
+
+                // Add event listener for the "View Full Text" button
+                const viewFullTextBtn = itemDiv.querySelector('.view-full-text-btn');
+                viewFullTextBtn.addEventListener('click', () => {
+                    showFullTextOverlay(source);
+                });
+
+                return true;
+            }
+        }
+
+        // Store references to loaded figure images
+        let loadedFigureImages = [];
+
+        // Function to show the overlay with full text and figures
+        async function showFullTextOverlay(source) {
+            const overlay = document.getElementById('fullTextOverlay');
+            const fullTextContainer = document.getElementById('fullTextContent');
+            const figuresContainer = document.getElementById('figuresContent');
+
+            // Clear previous content and show loading
+            fullTextContainer.innerHTML = 'Loading full text...';
+            // Clear previous figures and loaded images
+            figuresContainer.innerHTML = '';
+            loadedFigureImages.forEach(img => {
+                URL.revokeObjectURL(img.src);
+            });
+            loadedFigureImages = [];
+
+            // Fetch full text from separate API endpoint
+            const pubNumber = source.publication_number;
+            const fullTextApiUrl = `https://api.unifiedpatents.com/patents/${encodeURIComponent(pubNumber)}/full-language?mode=old`;
+            const figuresApiUrl = `https://api.unifiedpatents.com/patents/${encodeURIComponent(pubNumber)}/figures`;
+
+            try {
+                const response = await fetch(fullTextApiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const fullTextData = await response.json();
+
+                // Display claims
+                if (fullTextData.claims && Array.isArray(fullTextData.claims) && fullTextData.claims.length > 0) {
+                    const claimsDiv = document.createElement('div');
+                    claimsDiv.innerHTML = '<h3>Claims</h3>';
+                    fullTextData.claims.forEach(claim => {
+                        const p = document.createElement('p');
+                        p.textContent = claim.text;
+                        claimsDiv.appendChild(p);
+                    });
+                    fullTextContainer.innerHTML = '';
+                    fullTextContainer.appendChild(claimsDiv);
+                } else {
+                    fullTextContainer.textContent = 'Claims not available.';
+                }
+
+                // Display description
+                if (fullTextData.description) {
+                    const descDiv = document.createElement('div');
+                    descDiv.innerHTML = '<h3>Description</h3>';
+                    const p = document.createElement('p');
+                    p.textContent = fullTextData.description;
+                    descDiv.appendChild(p);
+                    fullTextContainer.appendChild(descDiv);
+                }
+
+                // Fetch figures metadata from figures API
+                const figuresResponse = await fetch(figuresApiUrl);
+                if (!figuresResponse.ok) {
+                    throw new Error(`Failed to fetch figures: ${figuresResponse.status}`);
+                }
+                const figuresData = await figuresResponse.json();
+
+                console.log('Figures API response:', figuresData);
+
+            // Populate figures from figuresData if available
+            if (figuresData && figuresData.figures && Array.isArray(figuresData.figures) && figuresData.figures.length > 0) {
+            // Clear previous images and reset rotation
+            loadedFigureImages = [];
+            // Clear only figuresImageContainer content, not figuresContainer
+            const figuresImageContainer = document.getElementById('figuresImageContainer');
+            if (figuresImageContainer) {
+                figuresImageContainer.innerHTML = '';
+            }
+
+            figuresData.figures.forEach((figure, index) => {
+                try {
+                    const img = document.createElement('img');
+                    if (figure.imgStr) {
+                        // Use base64 image string
+                        img.src = `data:image/png;base64,${figure.imgStr}`;
+                    } else {
+                        const figureUrl = figure.url || figure;
+                        console.log(`Loading figure image: ${figureUrl}`);
+                        img.src = figureUrl;
+                    }
+                    img.alt = `Figure ${index + 1}`;
+                    img.style.maxWidth = '100%';
+                    img.style.marginBottom = '1em';
+                    img.style.display = 'none'; // Hide all images initially
+                    img.style.transform = 'rotate(0deg)'; // Initial rotation
+                    // Append image inside imageBorderContainer
+                    const imageBorderContainer = document.getElementById('imageBorderContainer');
+                    if (imageBorderContainer) {
+                        imageBorderContainer.appendChild(img);
+                    }
+                    loadedFigureImages.push({ img: img, rotation: 0 });
+                } catch (err) {
+                    const errorMsg = document.createElement('div');
+                    errorMsg.textContent = `Failed to load figure ${index + 1}`;
+                    errorMsg.style.color = 'red';
+                    figuresContainer.appendChild(errorMsg);
+                }
+            });
+
+                // Show the first image initially
+                if (loadedFigureImages.length > 0) {
+                    loadedFigureImages[0].img.style.display = 'block';
+                    currentFigureIndex = 0;
+                }
+            } else {
+                figuresContainer.textContent = 'Figures not available.';
+            }
+
+            } catch (error) {
+                fullTextContainer.textContent = `Failed to load full text: ${error.message}`;
+                figuresContainer.textContent = '';
+            }
+
+            overlay.style.display = 'flex';
+        }
+
+        // Navigation buttons container moved inside showFullTextOverlay function
+
+        // Function to hide the overlay
+        function hideFullTextOverlay() {
+            const overlay = document.getElementById('fullTextOverlay');
+            const figuresContainer = document.getElementById('figuresContent');
+
+            // Remove all images and revoke object URLs
+            loadedFigureImages.forEach(img => {
+                URL.revokeObjectURL(img.src);
+            });
+            loadedFigureImages = [];
+            figuresContainer.innerHTML = '';
+
+            // Remove navigation buttons container if exists
+            let figuresNavContainer = document.getElementById('figuresNavContainer');
+            if (figuresNavContainer) {
+                figuresNavContainer.remove();
+            }
+
+            overlay.style.display = 'none';
+        }
+
+        // Move navigation buttons container creation inside showFullTextOverlay function
+        async function showFullTextOverlay(source) {
+            const overlay = document.getElementById('fullTextOverlay');
+            const fullTextContainer = document.getElementById('fullTextContent');
+            const figuresContainer = document.getElementById('figuresContent');
+
+            // Clear previous content and show loading
+            fullTextContainer.innerHTML = 'Loading full text...';
+            // Clear previous figures and loaded images
+            figuresContainer.innerHTML = '';
+            loadedFigureImages.forEach(img => {
+                URL.revokeObjectURL(img.src);
+            });
+            loadedFigureImages = [];
+
+            // Remove existing navigation buttons container if any
+            let figuresNavContainer = document.getElementById('figuresNavContainer');
+            if (figuresNavContainer) {
+                figuresNavContainer.remove();
+            }
+
+            // Create image container div
+            const figuresImageContainer = document.createElement('div');
+            figuresImageContainer.id = 'figuresImageContainer';
+            figuresImageContainer.style.flex = '1 1 auto';
+            figuresImageContainer.style.overflowY = 'auto';
+            figuresImageContainer.style.maxHeight = '100%';
+            figuresImageContainer.style.position = 'relative'; // Added for absolute positioning context
+
+            // Create image border container
+            const imageBorderContainer = document.createElement('div');
+            imageBorderContainer.id = 'imageBorderContainer';
+            imageBorderContainer.style.border = '4px solid black';
+            imageBorderContainer.style.padding = '0.5em';
+            imageBorderContainer.style.marginBottom = '1em';
+            imageBorderContainer.style.display = 'inline-block';
+            imageBorderContainer.style.maxWidth = '100%';
+
+            // Append image border container inside figuresImageContainer
+            figuresImageContainer.appendChild(imageBorderContainer);
+
+            // Append image container to figuresContent
+            figuresContainer.appendChild(figuresImageContainer);
+
+            // Create navigation buttons containers for positioning
+            const overlayContent = document.getElementById('fullTextOverlayContent');
+
+            // Container for Previous and Next buttons (left and right center)
+            const navSideContainer = document.createElement('div');
+            navSideContainer.id = 'navSideContainer';
+            navSideContainer.style.position = 'absolute';
+            navSideContainer.style.top = '50%';
+            navSideContainer.style.left = '0';
+            navSideContainer.style.right = '0';
+            navSideContainer.style.display = 'flex';
+            navSideContainer.style.justifyContent = 'space-between';
+            navSideContainer.style.alignItems = 'center';
+            navSideContainer.style.transform = 'translateY(-50%)';
+            navSideContainer.style.width = '100%';
+            // navSideContainer.style.pointerEvents = 'none'; // Removed to allow container interaction
+            navSideContainer.style.zIndex = '10'; // Added for visibility
+            navSideContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.3)'; // Added light background for visibility
+
+            // Previous button
+            const prevBtn = document.createElement('button');
+            prevBtn.innerHTML = '<span style="color: red; font-weight: bold;">&#8592;</span> Previous';
+            prevBtn.style.pointerEvents = 'auto';
+
+            // Next button
+            const nextBtn = document.createElement('button');
+            nextBtn.innerHTML = 'Next <span style="color: red; font-weight: bold;">&#8594;</span>';
+            nextBtn.style.pointerEvents = 'auto';
+
+            navSideContainer.appendChild(prevBtn);
+            navSideContainer.appendChild(nextBtn);
+
+            // Container for Rotate buttons (top left and top right)
+            const navTopContainer = document.createElement('div');
+            navTopContainer.id = 'navTopContainer';
+            navTopContainer.style.position = 'absolute';
+            navTopContainer.style.top = '0.5em';
+            navTopContainer.style.left = '0';
+            navTopContainer.style.right = '0';
+            navTopContainer.style.display = 'flex';
+            navTopContainer.style.justifyContent = 'space-between';
+            navTopContainer.style.alignItems = 'center';
+            navTopContainer.style.padding = '0 1em';
+            // navTopContainer.style.pointerEvents = 'none'; // Removed to allow container interaction
+            navTopContainer.style.zIndex = '10'; // Added for visibility
+            navTopContainer.style.backgroundColor = 'rgba(255, 255, 255, 0.3)'; // Added light background for visibility
+
+            // Rotate Left button
+            const rotateLeftBtn = document.createElement('button');
+            rotateLeftBtn.textContent = 'Rotate Left';
+            rotateLeftBtn.style.transform = 'rotate(-45deg)';
+
+            // Rotate Right button
+            const rotateRightBtn = document.createElement('button');
+            rotateRightBtn.textContent = 'Rotate Right';
+            rotateRightBtn.style.transform = 'rotate(45deg)';
+
+            navTopContainer.appendChild(rotateLeftBtn);
+            navTopContainer.appendChild(rotateRightBtn);
+
+            // Append containers to figuresImageContainer instead of overlayContent
+            figuresImageContainer.appendChild(navSideContainer);
+            figuresImageContainer.appendChild(navTopContainer);
+
+            // Style adjustments for smaller buttons
+            [prevBtn, nextBtn, rotateLeftBtn, rotateRightBtn].forEach(btn => {
+                btn.style.padding = '0.3em 0.6em';
+                btn.style.fontSize = '0.85em';
+            });
+
+            let currentFigureIndex = 0;
+
+            function showFigure(index) {
+                if (index < 0 || index >= loadedFigureImages.length) return;
+                loadedFigureImages.forEach(({ img }) => {
+                    img.style.display = 'none';
+                });
+                loadedFigureImages[index].img.style.display = 'block';
+                currentFigureIndex = index;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (loadedFigureImages.length === 0) return;
+                let newIndex = currentFigureIndex - 1;
+                if (newIndex < 0) newIndex = loadedFigureImages.length - 1;
+                showFigure(newIndex);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (loadedFigureImages.length === 0) return;
+                let newIndex = currentFigureIndex + 1;
+                if (newIndex >= loadedFigureImages.length) newIndex = 0;
+                showFigure(newIndex);
+            });
+
+            rotateLeftBtn.addEventListener('click', () => {
+                if (loadedFigureImages.length === 0) return;
+                let current = loadedFigureImages[currentFigureIndex];
+                current.rotation = (current.rotation - 90) % 360;
+                current.img.style.transform = `rotate(${current.rotation}deg)`;
+            });
+
+            rotateRightBtn.addEventListener('click', () => {
+                if (loadedFigureImages.length === 0) return;
+                let current = loadedFigureImages[currentFigureIndex];
+                current.rotation = (current.rotation + 90) % 360;
+                current.img.style.transform = `rotate(${current.rotation}deg)`;
+            });
+
+            // Fetch full text from separate API endpoint
+            const pubNumber = source.publication_number;
+            const fullTextApiUrl = `https://api.unifiedpatents.com/patents/${encodeURIComponent(pubNumber)}/full-language?mode=old`;
+            const figuresApiUrl = `https://api.unifiedpatents.com/patents/${encodeURIComponent(pubNumber)}/figures`;
+
+            try {
+                const response = await fetch(fullTextApiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const fullTextData = await response.json();
+
+                // Display claims
+                if (fullTextData.claims && Array.isArray(fullTextData.claims) && fullTextData.claims.length > 0) {
+                    const claimsDiv = document.createElement('div');
+                    claimsDiv.innerHTML = '<h3>Claims</h3>';
+                    fullTextData.claims.forEach(claim => {
+                        const p = document.createElement('p');
+                        p.textContent = claim.text;
+                        claimsDiv.appendChild(p);
+                    });
+                    fullTextContainer.innerHTML = '';
+                    fullTextContainer.appendChild(claimsDiv);
+                } else {
+                    fullTextContainer.textContent = 'Claims not available.';
+                }
+
+                // Display description
+                if (fullTextData.description) {
+                    const descDiv = document.createElement('div');
+                    descDiv.innerHTML = '<h3>Description</h3>';
+                    const p = document.createElement('p');
+                    p.textContent = fullTextData.description;
+                    descDiv.appendChild(p);
+                    fullTextContainer.appendChild(descDiv);
+                }
+
+                // Fetch figures metadata from figures API
+                const figuresResponse = await fetch(figuresApiUrl);
+                if (!figuresResponse.ok) {
+                    throw new Error(`Failed to fetch figures: ${figuresResponse.status}`);
+                }
+                const figuresData = await figuresResponse.json();
+
+                console.log('Figures API response:', figuresData);
+
+                // Populate figures from figuresData if available
+                if (figuresData && figuresData.figures && Array.isArray(figuresData.figures) && figuresData.figures.length > 0) {
+                    // Clear previous images and reset rotation
+                    loadedFigureImages = [];
+                    figuresContainer.innerHTML = '';
+
+                    figuresData.figures.forEach((figure, index) => {
+                        try {
+                            const img = document.createElement('img');
+                            if (figure.imgStr) {
+                                // Use base64 image string
+                                img.src = `data:image/png;base64,${figure.imgStr}`;
+                            } else {
+                                const figureUrl = figure.url || figure;
+                                console.log(`Loading figure image: ${figureUrl}`);
+                                img.src = figureUrl;
+                            }
+                            img.alt = `Figure ${index + 1}`;
+                            img.style.maxWidth = '100%';
+                            img.style.marginBottom = '1em';
+                            img.style.display = 'none'; // Hide all images initially
+                            img.style.transform = 'rotate(0deg)'; // Initial rotation
+                            figuresContainer.appendChild(img);
+                            loadedFigureImages.push({ img: img, rotation: 0 });
+                        } catch (err) {
+                            const errorMsg = document.createElement('div');
+                            errorMsg.textContent = `Failed to load figure ${index + 1}`;
+                            errorMsg.style.color = 'red';
+                            figuresContainer.appendChild(errorMsg);
+                        }
+                    });
+
+                    // Show the first image initially
+                    if (loadedFigureImages.length > 0) {
+                        loadedFigureImages[0].img.style.display = 'block';
+                        currentFigureIndex = 0;
+                    }
+                } else {
+                    figuresContainer.textContent = 'Figures not available.';
+                }
+
+            } catch (error) {
+                fullTextContainer.textContent = `Failed to load full text: ${error.message}`;
+                figuresContainer.textContent = '';
+            }
+
+            overlay.style.display = 'flex';
+        }
+
+        let displayedFamilyIds = new Set();
+
+        fetchBtn.addEventListener('click', async () => {
+            const rawInput = patentNumbersTextarea.value.trim();
+            resultsDiv.innerHTML = '';
+            statusDiv.textContent = '';
+            displayedFamilyIds.clear();
+
+            if (!rawInput) {
+                alert('Please enter at least one patent number.');
+                return;
+            }
+            const patents = rawInput.split(/[\n,]+/).map(p => p.trim()).filter(p => p.length > 0);
+            if (patents.length === 0) {
+                alert('Please enter valid patent numbers.');
+                return;
+            }
+
+            // Load selected lists and combine their family IDs
+            const savedLists = JSON.parse(localStorage.getItem('patentFamilyLists') || '{}');
+            const checkboxes = excludeListsContainer.querySelectorAll('input[type="checkbox"]:checked');
+            const excludedFamilyIds = new Set();
+            checkboxes.forEach(checkbox => {
+                const listName = checkbox.value;
+                const familyIds = savedLists[listName];
+                if (Array.isArray(familyIds)) {
+                    familyIds.forEach(id => excludedFamilyIds.add(id));
+                }
+            });
+
+            statusDiv.textContent = 'Transforming patent numbers...';
+
+            let transformedPatents;
+            try {
+                transformedPatents = await transformPatentNumbers(patents);
+            } catch (error) {
+                statusDiv.textContent = '';
+                alert(`Error transforming patent numbers: ${error.message}`);
+                return;
+            }
+
+            statusDiv.textContent = 'Fetching patent data...';
+
+            for (let i = 0; i < transformedPatents.length; i++) {
+                const patentNo = transformedPatents[i];
+                statusDiv.textContent = `Fetching data for patent ${patentNo} (${i + 1} of ${transformedPatents.length})...`;
+                const data = await fetchPatentData(patentNo);
+                displayPatentInfo(patentNo, data, displayedFamilyIds, excludedFamilyIds);
+            }
+
+            statusDiv.textContent = 'All patent data fetched.';
+        });
+
+        // Load saved lists on page load
+        window.addEventListener('load', () => {
+            loadSavedLists();
+        });
+    </script>
+
+    <style>
+        /* Overlay styles */
+        #fullTextOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+        }
+        #fullTextOverlayContent {
+            background: white;
+            width: 90vw;
+            max-width: 90vw;
+            height: 90vh;
+            display: flex;
+            flex-direction: row;
+            border-radius: 0;
+            box-shadow: none;
+            overflow: hidden;
+            position: relative;
+        }
+        #fullTextOverlayContent > div {
+            padding: 1em;
+            overflow-y: auto;
+        }
+        #fullTextContent {
+            flex: 1;
+            border-right: 1px solid #ccc;
+            white-space: pre-wrap;
+            font-family: monospace, monospace;
+            font-size: 0.9em;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        #figuresContent {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            height: 100vh;
+            padding-left: 1em;
+        }
+        #figuresImageContainer {
+            flex: 1 1 auto;
+            overflow-y: auto;
+            max-height: 100%;
+        }
+        #imageBorderContainer {
+            border: 4px solid black;
+            padding: 0.5em;
+            margin-bottom: 1em;
+            display: inline-block;
+            max-width: 100%;
+        }
+        #figuresNavContainer {
+            /* Removed previous styles to allow absolute positioning of buttons */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        #figuresNavContainer button {
+            padding: 0.5em 1em;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: white;
+            color: #1a73e8;
+            border: 1.5px solid #1a73e8;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            pointer-events: auto;
+        }
+        #figuresNavContainer button:hover {
+            background-color: #155ab6;
+            color: white;
+            border-color: #155ab6;
+        }
+        #fullTextOverlayCloseBtn {
+            position: absolute;
+            top: 0.3em;
+            right: 0.3em;
+            background: #d93025;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            font-size: 1.2em;
+            line-height: 24px;
+            text-align: center;
+            cursor: pointer;
+            z-index: 1010;
+        }
+        #figuresContent img {
+            display: block;
+            max-width: 100%;
+            margin-bottom: 1em;
+            visibility: visible;
+        }
+    </style>
+
+    <div id="fullTextOverlay">
+        <div id="fullTextOverlayContent">
+            <button id="fullTextOverlayCloseBtn" title="Close">&times;</button>
+            <div id="fullTextContent"></div>
+            <div id="figuresContent"></div>
+        </div>
+    </div>
+</body>
+</html>

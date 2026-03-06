@@ -98,6 +98,15 @@ footer a {
     background: #5a6268;
 }
 
+.btn-danger {
+    background: var(--error);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
 .btn-small {
     padding: 6px 12px;
     font-size: 12px;
@@ -198,6 +207,44 @@ footer a {
     text-align: center;
     margin-bottom: 10px;
 }
+
+/* Patent Info Viewer Styles */
+.patent-info {
+    margin-top: 1.5em;
+    border-top: 2px solid var(--border);
+    padding-top: 1.5em;
+}
+.patent-item {
+    margin-bottom: 1.5em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid var(--border);
+}
+.patent-title {
+    font-weight: 700;
+    font-size: 1.2em;
+    color: #1a1a1a;
+    margin-bottom: 0.3em;
+}
+.patent-meta {
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin-bottom: 0.6em;
+}
+.patent-meta span {
+    display: inline-block;
+    margin-right: 1em;
+}
+.patent-abstract {
+    font-size: 1em;
+    color: var(--text);
+    white-space: pre-wrap;
+    line-height: 1.4;
+}
+.error {
+    color: var(--error);
+    font-weight: 600;
+}
+
 
 .subtitle {
     text-align: center;

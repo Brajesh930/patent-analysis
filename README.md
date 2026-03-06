@@ -163,6 +163,7 @@ patent-analysis-mvp/
 
 ## Configuration
 
+### Basic Configuration
 Edit `config/config.php` to customize:
 
 ```php
@@ -176,11 +177,8 @@ define('PATENT_API_BASE_URL', 'https://api.example.com/patents');
 define('PATENT_API_KEY', 'YOUR_KEY_HERE');
 define('USE_MOCK_PATENT_API', true);
 
-// AI API
-define('AI_API_BASE_URL', 'https://api.example.com/ai');
-define('AI_API_KEY', 'YOUR_KEY_HERE');
-define('AI_MODEL', 'gpt-4');
-define('USE_MOCK_AI_API', true);
+// AI API - Now uses CENTRALIZED AI CONFIG (see below)
+// define('USE_MOCK_AI_API', true);
 
 // Processing
 define('AI_SLEEP_MS', 500);      // Rate limiting between AI calls
@@ -191,11 +189,75 @@ define('MAX_PATENTS_MVP', 100);  // Hard limit for MVP
 define('LOG_API_REQUESTS', true);
 ```
 
+### AI Provider Configuration (NEW!)
+
+**Switch between OpenAI, Google AI, Deepseek, Azure, Anthropic, Ollama, or custom providers without changing code!**
+
+1. **Copy the environment template:**
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Choose your AI provider and set credentials in `.env`:**
+   ```env
+   # Example: Using OpenAI
+   AI_PROVIDER=openai
+   OPENAI_API_KEY=sk-your-key-here
+   OPENAI_MODEL=gpt-4-turbo
+   USE_MOCK_AI_API=false
+   
+   # Or: Using Google Gemini
+   AI_PROVIDER=google
+   GOOGLE_API_KEY=your-key-here
+   GOOGLE_MODEL=gemini-2.5-flash
+   USE_MOCK_AI_API=false
+   ```
+
+3. **That's it!** No code changes needed.
+
+**Available Providers:**
+- `openai` - GPT-4, GPT-3.5-Turbo
+- `google` - Gemini models
+- `deepseek` - Fast and cost-effective
+- `azure` - Azure OpenAI
+- `anthropic` - Claude models
+- `ollama` - Local open-source models
+- `custom` - Your own backend
+
+📖 **Full Guide:** See [AI_CONFIG_GUIDE.md](AI_CONFIG_GUIDE.md)  
+⚡ **Quick Reference:** See [AI_PROVIDER_QUICK_REFERENCE.md](AI_PROVIDER_QUICK_REFERENCE.md)
+
 ---
 
 ## Adding Real APIs
 
-### Step 1: Implement Real Patent Provider
+### For Real AI Provider (NEW - EASIER!)
+
+The system now supports multiple AI providers out-of-the-box with **zero code changes needed**!
+
+**Simply:**
+1. Get your API key from your chosen provider
+2. Set in `.env` file:
+   ```env
+   AI_PROVIDER=openai  # or google, deepseek, azure, etc.
+   OPENAI_API_KEY=sk-...
+   USE_MOCK_AI_API=false
+   ```
+3. Done! Your chosen AI provider is now active.
+
+**Supported Providers:**
+- OpenAI (GPT-4, GPT-3.5-Turbo)
+- Google AI (Gemini)
+- Deepseek
+- Azure OpenAI
+- Anthropic Claude
+- Ollama (local)
+- Custom providers
+
+See [AI_CONFIG_GUIDE.md](AI_CONFIG_GUIDE.md) for provider-specific setup instructions.
+
+### For Real Patent API
+
 Edit `lib/PatentProvider.php` - replace mock with real API calls:
 
 ```php
@@ -205,7 +267,16 @@ private static function realFetchPatent($patentNumber, $scope) {
 }
 ```
 
-### Step 2: Implement Real AI Provider
+Then in `.env` or `config/config.php`:
+```php
+define('USE_MOCK_PATENT_API', false);  // Disable mock
+define('PATENT_API_KEY', 'actual_key');
+```
+
+### OLD APPROACH (Still supported)
+
+If you prefer to implement your AI provider in code:
+
 Edit `lib/AiProvider.php` - replace mock with real AI API calls:
 
 ```php
@@ -220,14 +291,13 @@ private static function realScreenPatent($contextsJson, $patentText) {
 }
 ```
 
-### Step 3: Update Configuration
-In `config/config.php`:
+Then in `config/config.php`:
 ```php
-define('USE_MOCK_PATENT_API', false);  // Disable mock
-define('USE_MOCK_AI_API', false);      // Disable mock
-define('PATENT_API_KEY', 'actual_key');
-define('AI_API_KEY', 'actual_key');
+// Load custom ai-config if needed
+define('USE_MOCK_AI_API', false);
 ```
+
+**Note:** The centralized configuration in `config/ai-config.php` handles all major AI providers automatically. Use this OLD approach only if you're using a provider not yet in the list.
 
 ---
 

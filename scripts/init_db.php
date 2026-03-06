@@ -42,6 +42,7 @@ function initDatabase() {
                 element_text TEXT NOT NULL,
                 approved INTEGER DEFAULT 0,
                 context_json TEXT,
+                context_error TEXT,
                 user_notes TEXT,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY(analysis_id) REFERENCES analyses(id) ON DELETE CASCADE

@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1>🔍 Patent Analysis MVP</h1>
             <div class="header-actions">
                 <a href="index.php" class="link">← Back to Analyses</a>
+                <a href="ai_config.php" class="btn" style="background:#6c757d; color:white; padding:8px 12px; font-size:12px; margin-right:10px;">⚙️ AI Config</a>
                 <a href="logout.php" class="btn btn-logout">Logout</a>
             </div>
         </header>

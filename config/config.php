@@ -18,17 +18,22 @@ define('SESSION_TIMEOUT', 3600); // 1 hour
 // ============================================================================
 // PATENT DATA API (mock by default, replace with real credentials)
 // ============================================================================
-define('PATENT_API_BASE_URL', 'https://api.example.com/patents');
-define('PATENT_API_KEY', 'YOUR_PATENT_API_KEY_HERE');
-define('USE_MOCK_PATENT_API', true); // Set to false when using real API
+// use unified patents API directly or via local proxy
+// when running in dev environment, the proxy (`public/api.php`) does the external call
+// you may set PATENT_API_BASE_URL to actual host if not using proxy
+
+define('PATENT_API_BASE_URL', 'https://api.unifiedpatents.com/patents');
+define('PATENT_API_KEY', ''); // not required for public endpoints
+
+// NOTE: USE_MOCK_PATENT_API is now defined in ai-config.php based on saved settings
 
 // ============================================================================
-// AI API (mock by default, replace with real credentials)
+// AI API CONFIGURATION
 // ============================================================================
-define('AI_API_BASE_URL', 'https://api.example.com/ai');
-define('AI_API_KEY', 'YOUR_AI_API_KEY_HERE');
-define('AI_MODEL', 'gpt-4');
-define('USE_MOCK_AI_API', true); // Set to false when using real API
+// Load centralized AI provider configuration
+// Supports: openai, google, deepseek, azure, anthropic, ollama, custom
+// Set AI_PROVIDER via environment variable to switch providers
+require_once __DIR__ . '/ai-config.php';
 
 // ============================================================================
 // PROCESSING CONFIG

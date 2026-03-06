@@ -58,18 +58,31 @@ class Database {
         ");
         return $stmt->execute([$extractedText, $id]);
     }
-    
-    // ========================================================================
-    // KEY ELEMENTS
-    // ========================================================================
-    
+
+    /**
+     * Replace the stored seed_value for an analysis (e.g. after normalization)
+     */
+    public function updateAnalysisSeedValue($id, $newValue) {
+        $stmt = $this->pdo->prepare(" 
+            UPDATE analyses SET seed_value = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?
+        ");
+        return $stmt->execute([$newValue, $id]);
+    }
+
+    public function deleteAnalysis($id) {
+        $stmt = $this->pdo->prepare("DELETE FROM analyses WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
+
+    /**
+     * Insert a new key element for an analysis
+     */
     public function addKeyElement($analysisId, $order, $elementText) {
         $stmt = $this->pdo->prepare("
             INSERT INTO key_elements (analysis_id, element_order, element_text, created_at)
             VALUES (?, ?, ?, CURRENT_TIMESTAMP)
         ");
-        $stmt->execute([$analysisId, $order, $elementText]);
-        return $this->pdo->lastInsertId();
+        return $stmt->execute([$analysisId, $order, $elementText]);
     }
     
     public function getKeyElements($analysisId) {
@@ -82,9 +95,23 @@ class Database {
     
     public function updateKeyElementContext($elementId, $contextJson) {
         $stmt = $this->pdo->prepare("
-            UPDATE key_elements SET context_json = ? WHERE id = ?
+            UPDATE key_elements SET context_json = ?, context_error = NULL WHERE id = ?
         ");
         return $stmt->execute([$contextJson, $elementId]);
+    }
+
+    public function updateKeyElementError($elementId, $errorMessage) {
+        $stmt = $this->pdo->prepare("
+            UPDATE key_elements SET context_error = ?, context_json = NULL WHERE id = ?
+        ");
+        return $stmt->execute([$errorMessage, $elementId]);
+    }
+
+    public function clearKeyElementContext($elementId) {
+        $stmt = $this->pdo->prepare("
+            UPDATE key_elements SET context_json = NULL, context_error = NULL WHERE id = ?
+        ");
+        return $stmt->execute([$elementId]);
     }
     
     public function updateKeyElementApproval($elementId, $approved, $userNotes = null) {
@@ -92,6 +119,11 @@ class Database {
             UPDATE key_elements SET approved = ?, user_notes = ? WHERE id = ?
         ");
         return $stmt->execute([$approved, $userNotes, $elementId]);
+    }
+
+    public function deleteKeyElement($elementId) {
+        $stmt = $this->pdo->prepare("DELETE FROM key_elements WHERE id = ?");
+        return $stmt->execute([$elementId]);
     }
     
     // ========================================================================

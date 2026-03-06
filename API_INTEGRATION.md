@@ -50,6 +50,69 @@ private static function realFetchPatent($patentNumber, $scope)
 
 ### Example: USPTO API Integration
 
+### Example: Unified Patents Integration
+
+The production system now ships with a working adapter for the [Unified Patents](https://api.unifiedpatents.com) public API, which was used during development.
+
+Key points:
+
+* Seed numbers entered by users are first normalized using the
+  `helpers/transform-publication-numbers` endpoint.  The helper is exposed
+  through `PatentProvider::transformPatentNumber()` and automatically handles
+  proxying and local normalization fallbacks.
+* Requests to the patent endpoint (`/patents/{number}?with_cases=true`) are
+  issued via `PatentProvider::httpRequest()`, which prefers the PHP cURL
+  extension and, if unavailable, will spawn the `curl` binary.  The helper
+  also correctly escapes payloads on Windows and logs the raw command for
+  debugging.
+* A lightweight proxy (`public/api.php`) exists primarily to avoid CORS when
+  the JavaScript client in the browser needs to call the backend; the PHP
+  server itself talks directly to Unified Patents unless running outside of
+  the built-in server or CLI.
+
+Below is the minimal implementation used in this project:
+
+```php
+public static function transformPatentNumber($raw) {
+    $rawArray = is_array($raw) ? $raw : [$raw];
+    $useProxy = !in_array(php_sapi_name(), ['cli-server','cli']);
+    if ($useProxy) {
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
+        $url  = "http://$host/api.php?op=transform";
+    } else {
+        $url = 'https://api.unifiedpatents.com/helpers/transform-publication-numbers';
+    }
+    $payload = json_encode(['publications' => $rawArray]);
+    $result  = self::httpRequest($url, $payload, ['Content-Type: application/json'], 60);
+    if (!$result || !is_array($result) || !isset($result[0])) {
+        // fallback heuristic when the helper is unreachable
+        return self::localNormalizeNumber($raw);
+    }
+    return $result[0];
+}
+
+private static function realFetchPatent($patentNumber, $scope) {
+    $useProxy = !in_array(php_sapi_name(), ['cli-server','cli']);
+    if ($useProxy) {
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost:8000';
+        $requestUrl = "http://$host/api.php?op=patent&number=" . urlencode($patentNumber);
+    } else {
+        $requestUrl = 'https://api.unifiedpatents.com/patents/' . urlencode($patentNumber) . '?with_cases=true';
+    }
+    Logger::logApiRequest('PatentAPI','GET',$requestUrl,['scope'=>$scope]);
+    $data = self::httpRequest($requestUrl, null, [], 60);
+    if (!$data) { return ['status'=>'failed','error'=>'empty response']; }
+    // convert data from UnifiedPatents to generic structure...
+    
+    // ...
+}
+```
+
+Refer to the code in `lib/PatentProvider.php` for the complete implementation.
+
+
+### Example: USPTO API Integration
+
 ```php
 private static function realFetchPatent($patentNumber, $scope) {
     $url = "https://api.uspto.gov/patent/" . urlencode($patentNumber);

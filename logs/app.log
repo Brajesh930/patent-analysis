@@ -1,3 +1,803 @@
 [2026-03-03 07:16:41] [INFO] User logged in: admin
 [2026-03-03 07:17:15] [INFO] Analysis created: ID=1, Name=test
 [2026-03-03 07:17:28] [INFO] Analysis created: ID=2, Name=test
+[2026-03-03 09:03:53] [INFO] User logged in: admin
+[2026-03-03 09:04:27] [INFO] Analysis created: ID=3, Name=test 3
+[2026-03-03 09:06:49] [INFO] Analysis created: ID=4, Name=test 3
+[2026-03-03 09:09:46] [INFO] Analysis created: ID=5, Name=test 3
+[2026-03-03 09:10:06] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: mock://patent/US9072046B2 | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:10:06] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"patent_number":"US9072046B2","status":"ok","claims":"1. A method for patent analysis comprising:\r\n   - receiving a patent document;\r\n   - extracting key elements from the document;\r\n   - comparing with a reference set;\r\n   - generating a relevance score.\r\n   \r\n2. The method of claim 1, wherein the key elements include:\r\n   - claim scope\r\n   - technical field\r\n   - distinguishing features\r\n   \r\n3. A system implementing the method of claim 1, comprising:\r\n   - a document ...
+[2026-03-03 09:10:06] [INFO] Fetched seed patent text for analysis 5
+[2026-03-03 09:10:48] [INFO] Added 4 key elements to analysis 5
+[2026-03-03 09:11:15] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: mock://ai/element_context | Params: {"seed_length":832,"element":"A user equipment (UE), comprising:"}
+[2026-03-03 09:11:15] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"definition":"Technical element referring to: A user equipment (UE), comprising:","synonyms":["A user equipment (UE), comprising:","a user equipment (ue), comprising:","A user equipment (UE), comprising:"],"explicit_markers":["A user equipment (UE), comprising:","\"A user equipment (UE), comprising:\""],"implicit_markers":["similar to A user equipment (UE), comprising:","comprising A user equipment (UE), comprising:","A user equipment (UE), comprising: or equivalent"],"boundaries":["specificall...
+[2026-03-03 09:11:15] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: mock://ai/element_context | Params: {"seed_length":832,"element":"a transmitter;"}
+[2026-03-03 09:11:15] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"definition":"Technical element referring to: a transmitter;","synonyms":["a transmitter;","a transmitter;","a transmitter;"],"explicit_markers":["a transmitter;","\"a transmitter;\""],"implicit_markers":["similar to a transmitter;","comprising a transmitter;","a transmitter; or equivalent"],"boundaries":["specifically excludes: non-a transmitter;","includes only direct implementations"],"match_cues":["functional equivalence","structural similarity","conceptual correspondence"]}
+[2026-03-03 09:11:16] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: mock://ai/element_context | Params: {"seed_length":832,"element":"a receiver; and"}
+[2026-03-03 09:11:16] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"definition":"Technical element referring to: a receiver; and","synonyms":["a receiver; and","a receiver; and","a receiver; and"],"explicit_markers":["a receiver; and","\"a receiver; and\""],"implicit_markers":["similar to a receiver; and","comprising a receiver; and","a receiver; and or equivalent"],"boundaries":["specifically excludes: non-a receiver; and","includes only direct implementations"],"match_cues":["functional equivalence","structural similarity","conceptual correspondence"]}
+[2026-03-03 09:11:16] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: mock://ai/element_context | Params: {"seed_length":832,"element":"one or more processors"}
+[2026-03-03 09:11:16] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"definition":"Technical element referring to: one or more processors","synonyms":["one or more processors","one or more processors","one or more processors"],"explicit_markers":["one or more processors","\"one or more processors\""],"implicit_markers":["similar to one or more processors","comprising one or more processors","one or more processors or equivalent"],"boundaries":["specifically excludes: non-one or more processors","includes only direct implementations"],"match_cues":["functional eq...
+[2026-03-03 09:11:17] [INFO] Generated context for 4 elements in analysis 5
+[2026-03-03 09:12:46] [INFO] Added 2 patents to analysis 5
+[2026-03-03 09:18:33] [INFO] Analysis created: ID=6, Name=test 3
+[2026-03-03 09:18:35] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: http://localhost:8000\/api.php?op=patent&number=US9072046B2 | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:20:04] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: http://localhost:8000\/api.php?op=patent&number=US9072046B2 | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:20:48] [INFO] Analysis created: ID=7, Name=test
+[2026-03-03 09:20:50] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: http://localhost:8000\/api.php?op=patent&number=US9072046B2 | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:30:38] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: http://localhost:8000\/api.php?op=patent&number=US9072046B2 | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:31:38] [ERROR] PatentAPI file_get_contents error: file_get_contents(http://localhost:8000\/api.php?op=patent&amp;number=US9072046B2): Failed to open stream: HTTP request failed!
+[2026-03-03 09:31:44] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: http://localhost:8000\/api.php?op=patent&number=US9072046B2 | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:32:44] [ERROR] PatentAPI file_get_contents error: file_get_contents(http://localhost:8000\/api.php?op=patent&amp;number=US9072046B2): Failed to open stream: HTTP request failed!
+[2026-03-03 09:34:52] [INFO] Failed login attempt for user: admin
+[2026-03-03 09:34:59] [INFO] User logged in: admin
+[2026-03-03 09:35:04] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:35:04] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:41:29] [INFO] User logged out: admin
+[2026-03-03 09:41:31] [INFO] User logged in: admin
+[2026-03-03 09:41:35] [ERROR] PatentAPI httpRequest file_get_contents error: file_get_contents(https://api.unifiedpatents.com/helpers/transform-publication-numbers): Failed to open stream: No such file or directory
+[2026-03-03 09:41:35] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:41:35] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:41:43] [ERROR] PatentAPI httpRequest file_get_contents error: file_get_contents(https://api.unifiedpatents.com/helpers/transform-publication-numbers): Failed to open stream: No such file or directory
+[2026-03-03 09:41:43] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:41:43] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:41:46] [ERROR] PatentAPI httpRequest file_get_contents error: file_get_contents(https://api.unifiedpatents.com/helpers/transform-publication-numbers): Failed to open stream: No such file or directory
+[2026-03-03 09:41:46] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:41:46] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:41:49] [ERROR] PatentAPI httpRequest file_get_contents error: file_get_contents(https://api.unifiedpatents.com/helpers/transform-publication-numbers): Failed to open stream: No such file or directory
+[2026-03-03 09:41:49] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:41:49] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:41:49] [ERROR] PatentAPI httpRequest file_get_contents error: file_get_contents(https://api.unifiedpatents.com/helpers/transform-publication-numbers): Failed to open stream: No such file or directory
+[2026-03-03 09:41:49] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:41:49] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:41:49] [ERROR] PatentAPI httpRequest file_get_contents error: file_get_contents(https://api.unifiedpatents.com/helpers/transform-publication-numbers): Failed to open stream: No such file or directory
+[2026-03-03 09:41:49] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:41:49] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:41:55] [ERROR] PatentAPI httpRequest file_get_contents error: file_get_contents(https://api.unifiedpatents.com/helpers/transform-publication-numbers): Failed to open stream: No such file or directory
+[2026-03-03 09:41:55] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:41:55] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:42:01] [ERROR] PatentAPI httpRequest file_get_contents error: file_get_contents(https://api.unifiedpatents.com/helpers/transform-publication-numbers): Failed to open stream: No such file or directory
+[2026-03-03 09:42:01] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:42:01] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:42:11] [ERROR] PatentAPI httpRequest file_get_contents error: file_get_contents(https://api.unifiedpatents.com/helpers/transform-publication-numbers): Failed to open stream: No such file or directory
+[2026-03-03 09:42:11] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:42:11] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:42:28] [ERROR] PatentAPI httpRequest file_get_contents error: file_get_contents(https://api.unifiedpatents.com/helpers/transform-publication-numbers): Failed to open stream: No such file or directory
+[2026-03-03 09:42:28] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:42:28] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:48:24] [INFO] User logged out: admin
+[2026-03-03 09:48:25] [INFO] User logged in: admin
+[2026-03-03 09:48:33] [INFO] User logged in: admin
+[2026-03-03 09:52:56] [INFO] transformPatentNumber raw=US9072046B2 -> normalized=array (
+  'statusCode' => 400,
+  'error' => 'Bad Request',
+  'message' => 'Expected property name or \'}\' in JSON at position 2',
+)
+[2026-03-03 09:52:56] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:52:56] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 09:57:22] [INFO] User logged out: admin
+[2026-03-03 09:57:23] [INFO] User logged in: admin
+[2026-03-03 09:57:37] [INFO] Analysis created: ID=8, Name=test
+[2026-03-03 09:57:40] [INFO] transformPatentNumber raw=US-9072046-B2 -> normalized=array (
+  'statusCode' => 400,
+  'error' => 'Bad Request',
+  'message' => 'Expected property name or \'}\' in JSON at position 2',
+)
+[2026-03-03 09:57:40] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 09:57:40] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 10:02:50] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-03 10:02:51] [INFO] transformPatentNumber API failed for raw=US-9072046-B2, response=array (
+  'statusCode' => 400,
+  'error' => 'Bad Request',
+  'message' => 'Expected property name or \'}\' in JSON at position 2',
+)
+[2026-03-03 10:02:51] [INFO] transformPatentNumber local fallback raw=US-9072046-B2 -> US-9072046-B2
+[2026-03-03 10:02:51] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:02:51] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 10:02:53] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-03 10:02:54] [INFO] transformPatentNumber API failed for raw=US-9072046-B2, response=array (
+  'statusCode' => 400,
+  'error' => 'Bad Request',
+  'message' => 'Expected property name or \'}\' in JSON at position 2',
+)
+[2026-03-03 10:02:54] [INFO] transformPatentNumber local fallback raw=US-9072046-B2 -> US-9072046-B2
+[2026-03-03 10:02:54] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:02:54] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 10:03:05] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-03 10:03:06] [INFO] transformPatentNumber API failed for raw=US-9072046-B2, response=array (
+  'statusCode' => 400,
+  'error' => 'Bad Request',
+  'message' => 'Expected property name or \'}\' in JSON at position 2',
+)
+[2026-03-03 10:03:06] [INFO] transformPatentNumber local fallback raw=US-9072046-B2 -> US-9072046-B2
+[2026-03-03 10:03:06] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:03:06] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 10:03:12] [INFO] User logged out: admin
+[2026-03-03 10:03:13] [INFO] User logged in: admin
+[2026-03-03 10:03:16] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-03 10:03:17] [INFO] transformPatentNumber API failed for raw=US9072046B2, response=array (
+  'statusCode' => 400,
+  'error' => 'Bad Request',
+  'message' => 'Expected property name or \'}\' in JSON at position 2',
+)
+[2026-03-03 10:03:17] [INFO] transformPatentNumber local fallback raw=US9072046B2 -> US-9072046-B2
+[2026-03-03 10:03:17] [INFO] Normalized seed value saved for analysis 7: US-9072046-B2
+[2026-03-03 10:03:17] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:03:17] [ERROR] PatentAPI file_get_contents error: file_get_contents(https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true): Failed to open stream: No such file or directory
+[2026-03-03 10:12:46] [INFO] httpRequest using cli-curl for http://localhost:8000./api.php?op=transform
+[2026-03-03 10:12:46] [DEBUG] curl command: curl -s -m 60 -H "Content-Type: application/json" -X POST -d "{\"publications\":[\"US-9072046-B2\"]}" "http://localhost:8000./api.php?op=transform"
+[2026-03-03 10:12:46] [ERROR] PatentAPI httpRequest cli curl failed for URL http://localhost:8000./api.php?op=transform
+[2026-03-03 10:12:46] [INFO] transformPatentNumber API failed for raw=US-9072046-B2, response=NULL
+[2026-03-03 10:12:46] [INFO] transformPatentNumber local fallback raw=US-9072046-B2 -> US-9072046-B2
+[2026-03-03 10:12:46] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: http://localhost:8000./api.php?op=patent&number=US-9072046-B2 | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:12:46] [INFO] httpRequest using cli-curl for http://localhost:8000./api.php?op=patent&number=US-9072046-B2
+[2026-03-03 10:12:46] [DEBUG] curl command: curl -s -m 60 "http://localhost:8000./api.php?op=patent&number=US-9072046-B2"
+[2026-03-03 10:12:46] [ERROR] PatentAPI httpRequest cli curl failed for URL http://localhost:8000./api.php?op=patent&number=US-9072046-B2
+[2026-03-03 10:13:36] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-03 10:13:36] [DEBUG] curl command: curl -s -m 60 -H "Content-Type: application/json" -X POST -d "{\"publications\":[\"US-9072046-B2\"]}" "https://api.unifiedpatents.com/helpers/transform-publication-numbers"
+[2026-03-03 10:13:39] [INFO] transformPatentNumber raw=US-9072046-B2 -> normalized=array (
+  0 => 'US-9072046-B2',
+)
+[2026-03-03 10:13:39] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:13:39] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true
+[2026-03-03 10:13:39] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true"
+[2026-03-03 10:13:40] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-9072046-B2","_version":467,"_seq_no":3997210863,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":277091.36062349763,"is_challenged":"false","cpc_subclass":["H04W","H04B","Y02D"],"expiration_date":"2028-03-28T00:00:00","type":"Grant","3gpp":{"5g_declaration_date":"2018-05-16T00:00:00","4g_declaration_date":"2010-07-30T00:00:00","spec_series":["36","36","36","38","38","38"],"declarations":["IS...
+[2026-03-03 10:16:28] [INFO] User logged in: admin
+[2026-03-03 10:16:28] [INFO] Analysis created: ID=9, Name=WebTest
+[2026-03-03 10:16:43] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-03 10:16:43] [DEBUG] curl command: curl -s -m 60 -H "Content-Type: application/json" -X POST -d "{\"publications\":[\"US-9072046-B2\"]}" "https://api.unifiedpatents.com/helpers/transform-publication-numbers"
+[2026-03-03 10:16:44] [INFO] transformPatentNumber raw=US-9072046-B2 -> normalized=array (
+  0 => 'US-9072046-B2',
+)
+[2026-03-03 10:16:44] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:16:44] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true
+[2026-03-03 10:16:44] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true"
+[2026-03-03 10:16:46] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-9072046-B2","_version":467,"_seq_no":3997210863,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":277091.36062349763,"is_challenged":"false","cpc_subclass":["H04W","H04B","Y02D"],"expiration_date":"2028-03-28T00:00:00","type":"Grant","3gpp":{"5g_declaration_date":"2018-05-16T00:00:00","4g_declaration_date":"2010-07-30T00:00:00","spec_series":["36","36","36","38","38","38"],"declarations":["IS...
+[2026-03-03 10:16:46] [INFO] Fetched seed patent text for analysis 9 using number US-9072046-B2
+[2026-03-03 10:18:01] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-03 10:18:01] [DEBUG] curl command: curl -s -m 60 -H "Content-Type: application/json" -X POST -d "{\"publications\":[\"US-9072046-B2\"]}" "https://api.unifiedpatents.com/helpers/transform-publication-numbers"
+[2026-03-03 10:18:03] [INFO] transformPatentNumber raw=US-9072046-B2 -> normalized=array (
+  0 => 'US-9072046-B2',
+)
+[2026-03-03 10:18:03] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:18:03] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true
+[2026-03-03 10:18:03] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true"
+[2026-03-03 10:18:04] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-9072046-B2","_version":467,"_seq_no":3997210863,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":277091.36062349763,"is_challenged":"false","cpc_subclass":["H04W","H04B","Y02D"],"expiration_date":"2028-03-28T00:00:00","type":"Grant","3gpp":{"5g_declaration_date":"2018-05-16T00:00:00","4g_declaration_date":"2010-07-30T00:00:00","spec_series":["36","36","36","38","38","38"],"declarations":["IS...
+[2026-03-03 10:18:04] [INFO] Fetched seed patent text for analysis 7 using number US-9072046-B2
+[2026-03-03 10:18:04] [INFO] User logged out: admin
+[2026-03-03 10:18:06] [INFO] User logged in: admin
+[2026-03-03 10:18:38] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-03 10:18:38] [DEBUG] curl command: curl -s -m 60 -H "Content-Type: application/json" -X POST -d "{\"publications\":[\"US-9072046-B2\"]}" "https://api.unifiedpatents.com/helpers/transform-publication-numbers"
+[2026-03-03 10:18:40] [INFO] transformPatentNumber raw=US-9072046-B2 -> normalized=array (
+  0 => 'US-9072046-B2',
+)
+[2026-03-03 10:18:40] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:18:40] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true
+[2026-03-03 10:18:40] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true"
+[2026-03-03 10:18:42] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-9072046-B2","_version":467,"_seq_no":3997210863,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":277091.36062349763,"is_challenged":"false","cpc_subclass":["H04W","H04B","Y02D"],"expiration_date":"2028-03-28T00:00:00","type":"Grant","3gpp":{"5g_declaration_date":"2018-05-16T00:00:00","4g_declaration_date":"2010-07-30T00:00:00","spec_series":["36","36","36","38","38","38"],"declarations":["IS...
+[2026-03-03 10:18:42] [INFO] Fetched seed patent text for analysis 8 using number US-9072046-B2
+[2026-03-03 10:19:15] [INFO] Added 1 patents to analysis 8
+[2026-03-03 10:30:00] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-03 10:30:00] [DEBUG] curl command: curl -s -m 60 -H "Content-Type: application/json" -X POST -d "{\"publications\":[\"US-9072046-B2\"]}" "https://api.unifiedpatents.com/helpers/transform-publication-numbers"
+[2026-03-03 10:30:03] [INFO] transformPatentNumber raw=US-9072046-B2 -> normalized=array (
+  0 => 'US-9072046-B2',
+)
+[2026-03-03 10:30:03] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:30:03] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true
+[2026-03-03 10:30:03] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true"
+[2026-03-03 10:30:05] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-9072046-B2","_version":467,"_seq_no":3997210863,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":277091.36062349763,"is_challenged":"false","cpc_subclass":["H04W","H04B","Y02D"],"expiration_date":"2028-03-28T00:00:00","type":"Grant","3gpp":{"5g_declaration_date":"2018-05-16T00:00:00","4g_declaration_date":"2010-07-30T00:00:00","spec_series":["36","36","36","38","38","38"],"declarations":["IS...
+[2026-03-03 10:30:05] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-9072046-B2/full-language?mode=old
+[2026-03-03 10:30:05] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-9072046-B2/full-language?mode=old"
+[2026-03-03 10:30:08] [INFO] Fetched seed patent text for analysis 9 using number US-9072046-B2
+[2026-03-03 10:30:39] [INFO] User logged out: admin
+[2026-03-03 10:30:40] [INFO] User logged in: admin
+[2026-03-03 10:31:30] [INFO] User logged out: admin
+[2026-03-03 10:31:31] [INFO] User logged in: admin
+[2026-03-03 10:31:45] [INFO] Analysis created: ID=10, Name=test 5
+[2026-03-03 10:31:52] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-03 10:31:52] [DEBUG] curl command: curl -s -m 60 -H "Content-Type: application/json" -X POST -d "{\"publications\":[\"US9072046B2\"]}" "https://api.unifiedpatents.com/helpers/transform-publication-numbers"
+[2026-03-03 10:31:54] [INFO] transformPatentNumber raw=US9072046B2 -> normalized=array (
+  0 => 'US-9072046-B2',
+)
+[2026-03-03 10:31:54] [INFO] Normalized seed value saved for analysis 10: US-9072046-B2
+[2026-03-03 10:31:54] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-03 10:31:54] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true
+[2026-03-03 10:31:54] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true"
+[2026-03-03 10:31:56] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-9072046-B2","_version":467,"_seq_no":3997210863,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":277091.36062349763,"is_challenged":"false","cpc_subclass":["H04W","H04B","Y02D"],"expiration_date":"2028-03-28T00:00:00","type":"Grant","3gpp":{"5g_declaration_date":"2018-05-16T00:00:00","4g_declaration_date":"2010-07-30T00:00:00","spec_series":["36","36","36","38","38","38"],"declarations":["IS...
+[2026-03-03 10:31:56] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-9072046-B2/full-language?mode=old
+[2026-03-03 10:31:56] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-9072046-B2/full-language?mode=old"
+[2026-03-03 10:31:58] [INFO] Fetched seed patent text for analysis 10 using number US-9072046-B2
+[2026-03-05 05:12:53] [INFO] User logged in: admin
+[2026-03-05 05:13:24] [INFO] Added 2 patents to analysis 10
+[2026-03-05 05:18:06] [INFO] Analysis created: ID=11, Name=test 7 
+[2026-03-05 05:18:13] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 05:18:13] [DEBUG] curl command: curl -s -m 60 -H "Content-Type: application/json" -X POST -d "{\"publications\":[\"US8837357B2\"]}" "https://api.unifiedpatents.com/helpers/transform-publication-numbers"
+[2026-03-05 05:18:14] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-05 05:18:14] [INFO] Normalized seed value saved for analysis 11: US-8837357-B2
+[2026-03-05 05:18:14] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 05:18:14] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-05 05:18:14] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true"
+[2026-03-05 05:18:16] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-05 05:18:16] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-05 05:18:16] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old"
+[2026-03-05 05:18:19] [INFO] Fetched seed patent text for analysis 11 using number US-8837357-B2
+[2026-03-05 05:18:47] [INFO] Added 2 key elements to analysis 11
+[2026-03-05 05:19:04] [INFO] Added 2 key elements to analysis 11
+[2026-03-05 05:19:20] [INFO] User logged out: admin
+[2026-03-05 05:19:44] [INFO] User logged in: admin
+[2026-03-05 05:20:00] [INFO] Analysis created: ID=12, Name=test 8 for ai
+[2026-03-05 05:20:03] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 05:20:03] [DEBUG] curl command: curl -s -m 60 -H "Content-Type: application/json" -X POST -d "{\"publications\":[\"US8837357B2\"]}" "https://api.unifiedpatents.com/helpers/transform-publication-numbers"
+[2026-03-05 05:20:05] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-05 05:20:05] [INFO] Normalized seed value saved for analysis 12: US-8837357-B2
+[2026-03-05 05:20:05] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 05:20:05] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-05 05:20:05] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true"
+[2026-03-05 05:20:07] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-05 05:20:07] [INFO] httpRequest using cli-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-05 05:20:07] [DEBUG] curl command: curl -s -m 60 "https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old"
+[2026-03-05 05:20:09] [INFO] Fetched seed patent text for analysis 12 using number US-8837357-B2
+[2026-03-05 05:20:16] [INFO] Added 2 key elements to analysis 12
+[2026-03-05 05:20:31] [INFO] Added 2 patents to analysis 12
+[2026-03-05 05:21:24] [INFO] Added 2 key elements to analysis 12
+[2026-03-05 05:23:29] [INFO] Added 2 key elements to analysis 12
+[2026-03-05 05:23:35] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:25:26] [INFO] Added 2 key elements to analysis 12
+[2026-03-05 05:25:29] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:25:29] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:25:29] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:25:29] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:25:30] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:25:30] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:25:30] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:25:30] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:25:31] [INFO] Generated context for 0 elements in analysis 12
+[2026-03-05 05:26:17] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:17] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:17] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:17] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:18] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:18] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:18] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:18] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:19] [INFO] Generated context for 0 elements in analysis 12
+[2026-03-05 05:26:23] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:23] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:24] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:24] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:24] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:24] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:25] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:25] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:25] [INFO] Generated context for 0 elements in analysis 12
+[2026-03-05 05:26:39] [INFO] Added 2 key elements to analysis 12
+[2026-03-05 05:26:48] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:48] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:48] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:48] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:49] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:49] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:50] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:50] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:50] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:50] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:51] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:26:51] [ERROR] AiAPI curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 05:26:51] [INFO] Generated context for 0 elements in analysis 12
+[2026-03-05 05:30:07] [INFO] Added 2 key elements to analysis 12
+[2026-03-05 05:30:11] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:30:12] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_...
+[2026-03-05 05:30:12] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:30:12] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:30:13] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_f...
+[2026-03-05 05:30:13] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:30:13] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:30:14] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_...
+[2026-03-05 05:30:14] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:30:14] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:30:14] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_f...
+[2026-03-05 05:30:14] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:30:15] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:30:15] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_...
+[2026-03-05 05:30:15] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:30:16] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:30:16] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_...
+[2026-03-05 05:30:16] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:30:17] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:30:17] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_f...
+[2026-03-05 05:30:17] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:30:17] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:30:18] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_f...
+[2026-03-05 05:30:18] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:30:18] [INFO] Generated context for 0 elements in analysis 12
+[2026-03-05 05:46:14] [INFO] Deleted key element 5 from analysis 12
+[2026-03-05 05:46:26] [INFO] Deleted analysis 1
+[2026-03-05 05:46:28] [INFO] Deleted analysis 2
+[2026-03-05 05:46:31] [INFO] Deleted analysis 3
+[2026-03-05 05:46:34] [INFO] Deleted analysis 4
+[2026-03-05 05:46:36] [INFO] Deleted analysis 5
+[2026-03-05 05:46:39] [INFO] Deleted analysis 6
+[2026-03-05 05:51:31] [INFO] Deleted analysis 6
+[2026-03-05 05:52:44] [INFO] AI configuration updated: Provider=google, Model=gemini-2.0-flash, UseMock=0
+[2026-03-05 05:53:03] [INFO] Deleted key element 7 from analysis 12
+[2026-03-05 05:53:07] [INFO] Deleted key element 9 from analysis 12
+[2026-03-05 05:53:10] [INFO] Deleted key element 11 from analysis 12
+[2026-03-05 05:53:15] [INFO] Deleted key element 12 from analysis 12
+[2026-03-05 05:53:19] [INFO] Deleted key element 10 from analysis 12
+[2026-03-05 05:53:24] [INFO] Deleted key element 8 from analysis 12
+[2026-03-05 05:53:30] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCWxy7LPCCWwf-9CNeLed6pPLzx-8nhzIY | Params: []
+[2026-03-05 05:53:31] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_f...
+[2026-03-05 05:53:31] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:53:32] [INFO] Generated context for 0 elements in analysis 12
+[2026-03-05 05:55:14] [INFO] AI configuration updated: Provider=google, Model=gemini-2.0-flash, UseMock=0
+[2026-03-05 05:55:23] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyD1tTfAsyb6sekbqZTh5YorQxO-V8pj7S4 | Params: []
+[2026-03-05 05:55:24] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_f...
+[2026-03-05 05:55:24] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:55:24] [INFO] Generated context for 0 elements in analysis 12
+[2026-03-05 05:59:25] [INFO] AI configuration updated: Provider=google, Model=gemini-2.0-flash, UseMock=0
+[2026-03-05 05:59:36] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCaN50KgLHM1gtfoHhakyUBH76cVEKVDnY | Params: []
+[2026-03-05 05:59:36] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. ","status":"RESOURCE_EXHAUSTED"}}
+[2026-03-05 05:59:36] [ERROR] AiAPI failed with code 429
+[2026-03-05 05:59:37] [INFO] Generated context for 0 elements in analysis 12
+[2026-03-05 06:00:11] [INFO] AI configuration updated: Provider=google, Model=gemini-2.0-flash, UseMock=1
+[2026-03-05 06:00:20] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: mock://ai/element_context | Params: {"seed_length":82032,"element":"receiving a mobile network request for registering with a mobile network; and"}
+[2026-03-05 06:00:20] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"definition":"Technical element referring to: receiving a mobile network request for registering with a mobile network; and","synonyms":["receiving a mobile network request for registering with a mobile network; and","receiving a mobile network request for registering with a mobile network; and","receiving a mobile network request for registering with a mobile network; and"],"explicit_markers":["receiving a mobile network request for registering with a mobile network; and","\"receiving a mobile...
+[2026-03-05 06:00:20] [INFO] Generated context for 1 elements in analysis 12
+[2026-03-05 06:00:41] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:00:41] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:00:42] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:00:42] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:00:42] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:00:43] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:00:43] [INFO] Completed screening of 2 patents for analysis 12
+[2026-03-05 06:01:10] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:01:10] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:01:11] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:01:11] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:01:11] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:01:11] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:01:11] [INFO] Completed screening of 2 patents for analysis 12
+[2026-03-05 06:02:07] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:02:07] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:02:07] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:02:07] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:02:07] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:02:08] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:02:08] [INFO] Completed screening of 2 patents for analysis 12
+[2026-03-05 06:02:11] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:02:11] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:02:12] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:02:12] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:02:12] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:02:13] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:02:13] [INFO] Completed screening of 2 patents for analysis 12
+[2026-03-05 06:02:51] [INFO] Exported HTML report for analysis 12
+[2026-03-05 06:03:20] [INFO] AI configuration updated: Provider=google, Model=gemini-2.0-flash, UseMock=0
+[2026-03-05 06:03:34] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:03:34] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:03:35] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:03:35] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:03:35] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:03:35] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:03:35] [INFO] Completed screening of 2 patents for analysis 12
+[2026-03-05 06:04:22] [INFO] AI configuration updated: Provider=google, Model=gemini-2.0-flash, UseMock=0
+[2026-03-05 06:04:51] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:04:51] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:04:51] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:04:51] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:04:51] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:04:52] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:04:52] [INFO] Completed screening of 2 patents for analysis 12
+[2026-03-05 06:05:40] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:05:40] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:05:41] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:05:41] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:05:41] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-05 06:05:41] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:05:41] [INFO] Completed screening of 2 patents for analysis 12
+[2026-03-05 06:06:38] [INFO] Added 2 key elements to analysis 12
+[2026-03-05 06:06:43] [INFO] Deleted key element 6 from analysis 12
+[2026-03-05 06:06:47] [INFO] Deleted key element 14 from analysis 12
+[2026-03-05 06:06:54] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-05 06:06:54] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_...
+[2026-03-05 06:06:54] [ERROR] AiAPI failed with code 429
+[2026-03-05 06:06:55] [INFO] Generated context for 0 elements in analysis 12
+[2026-03-05 06:12:08] [INFO] Analysis created: ID=1, Name=test 4
+[2026-03-05 06:12:16] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 06:12:16] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:12:16] [INFO] transformPatentNumber API failed for raw=US8837357B2, response=NULL
+[2026-03-05 06:12:16] [INFO] transformPatentNumber local fallback raw=US8837357B2 -> US-8837357-B2
+[2026-03-05 06:12:17] [INFO] Normalized seed value saved for analysis 1: US-8837357-B2
+[2026-03-05 06:12:17] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:12:17] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-05 06:12:17] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:12:25] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 06:12:25] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:12:25] [INFO] transformPatentNumber API failed for raw=US-8837357-B2, response=NULL
+[2026-03-05 06:12:25] [INFO] transformPatentNumber local fallback raw=US-8837357-B2 -> US-8837357-B2
+[2026-03-05 06:12:25] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:12:25] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-05 06:12:26] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:15:43] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 06:15:43] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:15:43] [INFO] transformPatentNumber API failed for raw=US-8837357-B2, response=NULL
+[2026-03-05 06:15:43] [INFO] transformPatentNumber local fallback raw=US-8837357-B2 -> US-8837357-B2
+[2026-03-05 06:15:43] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: mock://patent/US-8837357-B2 | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:15:43] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"patent_number":"US-8837357-B2","status":"ok","claims":"1. A method for patent analysis comprising:\r\n   - receiving a patent document;\r\n   - extracting key elements from the document;\r\n   - comparing with a reference set;\r\n   - generating a relevance score.\r\n   \r\n2. The method of claim 1, wherein the key elements include:\r\n   - claim scope\r\n   - technical field\r\n   - distinguishing features\r\n   \r\n3. A system implementing the method of claim 1, comprising:\r\n   - a documen...
+[2026-03-05 06:15:43] [INFO] Fetched seed patent text for analysis 1 using number US-8837357-B2
+[2026-03-05 06:16:18] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 06:16:19] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:16:19] [INFO] transformPatentNumber API failed for raw=US-8837357-B2, response=NULL
+[2026-03-05 06:16:19] [INFO] transformPatentNumber local fallback raw=US-8837357-B2 -> US-8837357-B2
+[2026-03-05 06:16:19] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: mock://patent/US-8837357-B2 | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:16:19] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"patent_number":"US-8837357-B2","status":"ok","claims":"1. A method for patent analysis comprising:\r\n   - receiving a patent document;\r\n   - extracting key elements from the document;\r\n   - comparing with a reference set;\r\n   - generating a relevance score.\r\n   \r\n2. The method of claim 1, wherein the key elements include:\r\n   - claim scope\r\n   - technical field\r\n   - distinguishing features\r\n   \r\n3. A system implementing the method of claim 1, comprising:\r\n   - a documen...
+[2026-03-05 06:16:19] [INFO] Fetched seed patent text for analysis 1 using number US-8837357-B2
+[2026-03-05 06:16:29] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 06:16:30] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:16:30] [INFO] transformPatentNumber API failed for raw=US-8837357-B2, response=NULL
+[2026-03-05 06:16:30] [INFO] transformPatentNumber local fallback raw=US-8837357-B2 -> US-8837357-B2
+[2026-03-05 06:16:30] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: mock://patent/US-8837357-B2 | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:16:30] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"patent_number":"US-8837357-B2","status":"ok","claims":"1. A method for patent analysis comprising:\r\n   - receiving a patent document;\r\n   - extracting key elements from the document;\r\n   - comparing with a reference set;\r\n   - generating a relevance score.\r\n   \r\n2. The method of claim 1, wherein the key elements include:\r\n   - claim scope\r\n   - technical field\r\n   - distinguishing features\r\n   \r\n3. A system implementing the method of claim 1, comprising:\r\n   - a documen...
+[2026-03-05 06:16:30] [INFO] Fetched seed patent text for analysis 1 using number US-8837357-B2
+[2026-03-05 06:16:31] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 06:16:32] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:16:32] [INFO] transformPatentNumber API failed for raw=US-8837357-B2, response=NULL
+[2026-03-05 06:16:32] [INFO] transformPatentNumber local fallback raw=US-8837357-B2 -> US-8837357-B2
+[2026-03-05 06:16:32] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: mock://patent/US-8837357-B2 | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:16:32] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"patent_number":"US-8837357-B2","status":"ok","claims":"1. A method for patent analysis comprising:\r\n   - receiving a patent document;\r\n   - extracting key elements from the document;\r\n   - comparing with a reference set;\r\n   - generating a relevance score.\r\n   \r\n2. The method of claim 1, wherein the key elements include:\r\n   - claim scope\r\n   - technical field\r\n   - distinguishing features\r\n   \r\n3. A system implementing the method of claim 1, comprising:\r\n   - a documen...
+[2026-03-05 06:16:32] [INFO] Fetched seed patent text for analysis 1 using number US-8837357-B2
+[2026-03-05 06:16:40] [INFO] AI configuration updated: Provider=google, Model=gemini-2.0-flash, UseMock=0, UseMockPatent=1
+[2026-03-05 06:16:46] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 06:16:47] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:16:47] [INFO] transformPatentNumber API failed for raw=US-8837357-B2, response=NULL
+[2026-03-05 06:16:47] [INFO] transformPatentNumber local fallback raw=US-8837357-B2 -> US-8837357-B2
+[2026-03-05 06:16:47] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: mock://patent/US-8837357-B2 | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:16:47] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"patent_number":"US-8837357-B2","status":"ok","claims":"1. A method for patent analysis comprising:\r\n   - receiving a patent document;\r\n   - extracting key elements from the document;\r\n   - comparing with a reference set;\r\n   - generating a relevance score.\r\n   \r\n2. The method of claim 1, wherein the key elements include:\r\n   - claim scope\r\n   - technical field\r\n   - distinguishing features\r\n   \r\n3. A system implementing the method of claim 1, comprising:\r\n   - a documen...
+[2026-03-05 06:16:47] [INFO] Fetched seed patent text for analysis 1 using number US-8837357-B2
+[2026-03-05 06:16:59] [INFO] AI configuration updated: Provider=google, Model=gemini-2.0-flash, UseMock=0, UseMockPatent=0
+[2026-03-05 06:17:08] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 06:17:09] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:17:09] [INFO] transformPatentNumber API failed for raw=US-8837357-B2, response=NULL
+[2026-03-05 06:17:09] [INFO] transformPatentNumber local fallback raw=US-8837357-B2 -> US-8837357-B2
+[2026-03-05 06:17:09] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:17:09] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-05 06:17:10] [ERROR] PatentAPI httpRequest curl error: SSL certificate OpenSSL verify result: unable to get local issuer certificate (20)
+[2026-03-05 06:17:10] [ERROR] PatentAPI empty response from: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-05 06:20:15] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 06:20:16] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-05 06:20:16] [INFO] transformPatentNumber raw=US-8837357-B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-05 06:20:16] [INFO] PatentProvider: Fetching real patent data for: US-8837357-B2 (useProxy=)
+[2026-03-05 06:20:16] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:20:16] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-05 06:20:18] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-05 06:20:18] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-05 06:20:18] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-05 06:20:21] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-05 06:20:21] [INFO] Fetched seed patent text for analysis 1 using number US-8837357-B2
+[2026-03-05 06:20:52] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 06:20:53] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-05 06:20:53] [INFO] transformPatentNumber raw=US-8837357-B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-05 06:20:53] [INFO] PatentProvider: Fetching real patent data for: US-8837357-B2 (useProxy=)
+[2026-03-05 06:20:53] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 06:20:53] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-05 06:20:55] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-05 06:20:55] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-05 06:20:55] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-05 06:20:57] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-05 06:20:57] [INFO] Fetched seed patent text for analysis 1 using number US-8837357-B2
+[2026-03-05 06:21:15] [INFO] Added 1 key elements to analysis 1
+[2026-03-05 06:21:21] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-05 06:21:21] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_...
+[2026-03-05 06:21:21] [ERROR] AiAPI failed with code 429
+[2026-03-05 06:21:22] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-05 06:22:45] [INFO] AI configuration updated: Provider=google, Model=gemini-1.5-flash, UseMock=0, UseMockPatent=0
+[2026-03-05 06:22:52] [INFO] Cleared context for element 1 in analysis 1
+[2026-03-05 06:23:01] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-05 06:23:02] [API_RESP] API RESPONSE | Service: AiAPI | Status: 404 | Response: {"error":{"code":404,"message":"models\/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","status":"NOT_FOUND"}}
+[2026-03-05 06:23:02] [ERROR] AiAPI failed with code 404
+[2026-03-05 06:23:02] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-05 06:23:34] [INFO] AI configuration updated: Provider=google, Model=gemini-pro, UseMock=0, UseMockPatent=0
+[2026-03-05 06:23:43] [INFO] AI configuration updated: Provider=google, Model=gemini-1.5-flash, UseMock=0, UseMockPatent=0
+[2026-03-05 06:24:26] [INFO] AI configuration updated: Provider=openai, Model=gpt-4-turbo, UseMock=0, UseMockPatent=0
+[2026-03-05 06:24:31] [INFO] AI configuration updated: Provider=google, Model=gemini-1.5-flash, UseMock=0, UseMockPatent=0
+[2026-03-05 06:24:40] [INFO] AI configuration updated: Provider=openai, Model=gpt-4, UseMock=0, UseMockPatent=0
+[2026-03-05 06:24:45] [INFO] AI configuration updated: Provider=openai, Model=gpt-4o, UseMock=0, UseMockPatent=0
+[2026-03-05 06:27:18] [INFO] AI configuration updated: Provider=google, Model=gemini-1.5-pro, UseMock=0, UseMockPatent=0
+[2026-03-05 06:27:26] [INFO] Cleared context for element 1 in analysis 1
+[2026-03-05 06:27:31] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-05 06:27:32] [API_RESP] API RESPONSE | Service: AiAPI | Status: 404 | Response: {"error":{"code":404,"message":"models\/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","status":"NOT_FOUND"}}
+[2026-03-05 06:27:32] [ERROR] AiAPI failed with code 404
+[2026-03-05 06:27:32] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-05 06:30:28] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-05 06:30:29] [API_RESP] API RESPONSE | Service: AiAPI | Status: 404 | Response: {"error":{"code":404,"message":"models\/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","status":"NOT_FOUND"}}
+[2026-03-05 06:30:29] [ERROR] AiAPI failed with code 404
+[2026-03-05 06:30:29] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-05 12:43:24] [INFO] User logged in: admin
+[2026-03-05 12:43:33] [INFO] AI configuration updated: Provider=google, Model=gemini-1.5-pro, UseMock=0, UseMockPatent=0
+[2026-03-05 12:43:53] [INFO] Analysis created: ID=1, Name=test ai
+[2026-03-05 12:44:00] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-05 12:44:01] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-05 12:44:01] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-05 12:44:01] [INFO] Normalized seed value saved for analysis 1: US-8837357-B2
+[2026-03-05 12:44:01] [INFO] PatentProvider: Fetching real patent data for: US-8837357-B2 (useProxy=)
+[2026-03-05 12:44:01] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 12:44:01] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-05 12:44:03] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-05 12:44:03] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-05 12:44:03] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-05 12:44:06] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-05 12:44:06] [INFO] Fetched seed patent text for analysis 1 using number US-8837357-B2
+[2026-03-05 12:44:18] [INFO] Added 2 key elements to analysis 1
+[2026-03-05 12:44:30] [INFO] Deleted key element 2 from analysis 1
+[2026-03-05 12:44:33] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-05 12:44:33] [API_RESP] API RESPONSE | Service: AiAPI | Status: 404 | Response: {"error":{"code":404,"message":"models\/gemini-1.5-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","status":"NOT_FOUND"}}
+[2026-03-05 12:44:33] [ERROR] AiAPI failed with code 404
+[2026-03-05 12:44:34] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-05 12:57:46] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-05 12:57:46] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_...
+[2026-03-05 12:57:46] [ERROR] AiAPI failed with code 429
+[2026-03-05 12:57:46] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-05 12:57:49] [INFO] Cleared context for element 1 in analysis 1
+[2026-03-05 12:57:55] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-05 12:57:55] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_f...
+[2026-03-05 12:57:55] [ERROR] AiAPI failed with code 429
+[2026-03-05 12:57:56] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-05 12:58:13] [INFO] PatentProvider: Fetching real patent data for: US10123456B2 (useProxy=)
+[2026-03-05 12:58:13] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US10123456B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-05 12:58:13] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US10123456B2?with_cases=true
+[2026-03-05 12:58:14] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-05 12:58:14] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_found":false,"_cached":false}
+[2026-03-05 12:58:47] [INFO] AI configuration updated: Provider=google, Model=gemini-2.0-flash, UseMock=0, UseMockPatent=0
+[2026-03-05 12:59:10] [INFO] Cleared context for element 1 in analysis 1
+[2026-03-05 12:59:16] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-05 12:59:17] [API_RESP] API RESPONSE | Service: AiAPI | Status: 429 | Response: {"error":{"code":429,"message":"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https:\/\/ai.google.dev\/gemini-api\/docs\/rate-limits. To monitor your current usage, head to: https:\/\/ai.dev\/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com\/generate_content_f...
+[2026-03-05 12:59:17] [ERROR] AiAPI failed with code 429
+[2026-03-05 12:59:17] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-05 13:08:52] [INFO] Cleared context for element 1 in analysis 1
+[2026-03-05 13:09:00] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-05 13:09:15] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"candidates":[{"content":{"parts":[{"text":"```json\n{\n  \"definition\": \"A network entity responsible for managing various aspects of mobile communication for mobile stations, including signaling, tracking, paging, radio bearer management, and user authentication. The 'method' refers to the operational steps or processes performed by this entity, such as receiving mobile network requests and sending responses that include area identity lists and indicators of service support.\",\n  \"synonym...
+[2026-03-05 13:09:16] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 04:02:45] [INFO] User logged in: admin
+[2026-03-06 04:02:55] [INFO] Cleared context for element 1 in analysis 1
+[2026-03-06 04:03:02] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-06 04:03:15] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"candidates":[{"content":{"parts":[{"text":"```json\n{\n  \"definition\": \"A network entity or apparatus, such as a Mobility Management Entity (MME) in an LTE network or a Serving GPRS Support Node (SGSN) in a UMTS network, configured to manage mobile communication services. The 'method' refers to the sequence of operations performed by this entity, which includes managing signaling, tracking, paging, radio bearer activation\/deactivation, user authentication, and, as specifically detailed in ...
+[2026-03-06 04:03:16] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 04:30:23] [INFO] Cleared context for element 1 in analysis 1
+[2026-03-06 04:30:32] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-06 04:30:44] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"candidates":[{"content":{"parts":[{"text":"```json\n{\n  \"definition\": \"A sequence of operations performed by a network entity, such as a Mobility Management Entity (MME) in LTE or a Serving GPRS Support Node (SGSN) in UMTS, that is responsible for managing mobile device connectivity and services within a wireless communication network. These operations include, but are not limited to, handling signaling, tracking, paging, radio bearer activation\/deactivation, and user authentication for m...
+[2026-03-06 04:30:45] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 04:35:53] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-06 04:36:05] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"candidates":[{"content":{"parts":[{"text":"```json\n{\n  \"definition\": \"A sequence of operational steps or procedures executed by a network entity responsible for managing various aspects of mobile communication within a wireless network. This entity facilitates communication between mobile stations and the core network, handling functions such as signaling, tracking, paging, authentication, and the management of radio bearers. The method specifically involves receiving requests from mobile...
+[2026-03-06 04:36:06] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 04:36:10] [INFO] Cleared context for element 1 in analysis 1
+[2026-03-06 04:36:18] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: []
+[2026-03-06 04:36:29] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"candidates":[{"content":{"parts":[{"text":"```json\n{\n  \"definition\": \"A method performed by a network entity responsible for managing the connectivity, registration, and movement of mobile devices within a mobile communication network. This entity handles signaling, tracking, paging, radio bearer management, and authentication, and is configured to provide information regarding service support (e.g., VoIMS) within defined network areas to mobile stations.\",\n  \"synonyms\": [\n    \"mobi...
+[2026-03-06 04:36:29] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 04:46:06] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 04:46:06] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":86}
+[2026-03-06 04:46:10] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":1472}
+[2026-03-06 04:46:10] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 04:46:10] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":108}
+[2026-03-06 04:46:15] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":1558}
+[2026-03-06 05:07:36] [INFO] Cleared context for element 1 in analysis 1
+[2026-03-06 05:07:40] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:07:40] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 05:07:52] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":2326}
+[2026-03-06 05:07:52] [INFO] Generated context for 1 elements in analysis 1
+[2026-03-06 05:08:32] [INFO] Added 2 patents to analysis 1
+[2026-03-06 05:08:35] [INFO] PatentProvider: Fetching real patent data for: US8837357B2 (useProxy=)
+[2026-03-06 05:08:35] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 05:08:35] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-06 05:08:36] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-06 05:08:36] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_found":false,"_cached":false}
+[2026-03-06 05:08:36] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:08:36] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":2934}
+[2026-03-06 05:08:42] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":637}
+[2026-03-06 05:08:43] [INFO] PatentProvider: Fetching real patent data for: US8837357B2 (useProxy=)
+[2026-03-06 05:08:43] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 05:08:43] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US8837357B2?with_cases=true
+[2026-03-06 05:08:44] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-06 05:08:44] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_found":false,"_cached":false}
+[2026-03-06 05:08:44] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:08:44] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":2934}
+[2026-03-06 05:08:49] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":732}
+[2026-03-06 05:08:50] [INFO] Completed screening of 2 patents for analysis 1
+[2026-03-06 05:10:02] [INFO] Added 1 patents to analysis 1
+[2026-03-06 05:10:34] [INFO] Added 1 patents to analysis 1
+[2026-03-06 05:10:43] [INFO] Added 1 patents to analysis 1
+[2026-03-06 05:10:46] [INFO] PatentProvider: Fetching real patent data for: US9072046B2 (useProxy=)
+[2026-03-06 05:10:46] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 05:10:46] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true
+[2026-03-06 05:10:47] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-06 05:10:47] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_found":false,"_cached":false}
+[2026-03-06 05:10:47] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:10:47] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":2934}
+[2026-03-06 05:10:57] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":626}
+[2026-03-06 05:10:58] [INFO] Completed screening of 1 patents for analysis 1
+[2026-03-06 05:16:12] [INFO] Added 1 patents to analysis 1
+[2026-03-06 05:16:14] [INFO] PatentProvider: Fetching real patent data for: US20110158165A1 (useProxy=)
+[2026-03-06 05:16:14] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US20110158165A1?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 05:16:14] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US20110158165A1?with_cases=true
+[2026-03-06 05:16:15] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-06 05:16:15] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_found":false,"_cached":false}
+[2026-03-06 05:16:15] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:16:15] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":2934}
+[2026-03-06 05:16:21] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":696}
+[2026-03-06 05:16:22] [INFO] Completed screening of 1 patents for analysis 1
+[2026-03-06 05:28:28] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true
+[2026-03-06 05:28:29] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-06 05:28:29] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2/full-language?mode=old
+[2026-03-06 05:28:30] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false}
+[2026-03-06 05:28:39] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true
+[2026-03-06 05:28:40] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-06 05:28:40] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2/full-language?mode=old
+[2026-03-06 05:28:41] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false}
+[2026-03-06 05:28:41] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:28:41] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":2934}
+[2026-03-06 05:28:47] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":601}
+[2026-03-06 05:29:28] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true
+[2026-03-06 05:29:29] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-06 05:29:29] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2/full-language?mode=old
+[2026-03-06 05:29:30] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false}
+[2026-03-06 05:29:30] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:29:30] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":2934}
+[2026-03-06 05:29:39] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":583}
+[2026-03-06 05:34:20] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true
+[2026-03-06 05:34:21] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-06 05:34:21] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2/full-language?mode=old
+[2026-03-06 05:34:22] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false}
+[2026-03-06 05:34:36] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true
+[2026-03-06 05:34:37] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-06 05:34:37] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2/full-language?mode=old
+[2026-03-06 05:34:38] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false}
+[2026-03-06 05:34:43] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2?with_cases=true
+[2026-03-06 05:34:44] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false,"_cached":false}
+[2026-03-06 05:34:44] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US9072046B2/full-language?mode=old
+[2026-03-06 05:34:45] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_found":false}
+[2026-03-06 05:34:45] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:34:45] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":2934}
+[2026-03-06 05:34:50] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":641}
+[2026-03-06 05:35:26] [INFO] Deleted key element 1 from analysis 1
+[2026-03-06 05:35:35] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 05:35:37] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-06 05:35:37] [INFO] transformPatentNumber raw=US-8837357-B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-06 05:35:37] [INFO] PatentProvider: Fetching real patent data for: US-8837357-B2 (useProxy=)
+[2026-03-06 05:35:37] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 05:35:37] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-06 05:35:38] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-06 05:35:38] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-06 05:35:38] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-06 05:35:41] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-06 05:35:41] [INFO] Fetched seed patent text for analysis 1 using number US-8837357-B2
+[2026-03-06 05:35:51] [INFO] Added 1 key elements to analysis 1
+[2026-03-06 05:35:55] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:35:55] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 05:35:55] [ERROR] AiApiService HTTP 429
+[2026-03-06 05:35:55] [ERROR] API Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash
+Please retry in 51.637939471s.
+[2026-03-06 05:35:55] [ERROR] AiApiService: No response from API
+[2026-03-06 05:35:56] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 05:36:14] [INFO] Cleared context for element 3 in analysis 1
+[2026-03-06 05:36:18] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:36:18] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 05:36:19] [ERROR] AiApiService HTTP 429
+[2026-03-06 05:36:19] [ERROR] API Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash
+Please retry in 28.428655727s.
+[2026-03-06 05:36:19] [ERROR] AiApiService: No response from API
+[2026-03-06 05:36:19] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 05:37:43] [INFO] Cleared context for element 3 in analysis 1
+[2026-03-06 05:37:47] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:37:47] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 05:37:48] [ERROR] AiApiService HTTP 429
+[2026-03-06 05:37:48] [ERROR] API Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash
+Please retry in 59.393254636s.
+[2026-03-06 05:37:48] [ERROR] AiApiService: No response from API
+[2026-03-06 05:37:48] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 05:40:35] [INFO] Cleared context for element 3 in analysis 1
+[2026-03-06 05:40:39] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:40:39] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 05:40:40] [ERROR] AiApiService HTTP 429
+[2026-03-06 05:40:40] [ERROR] API Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash
+Please retry in 6.754400231s.
+[2026-03-06 05:40:40] [ERROR] AiApiService: No response from API
+[2026-03-06 05:40:41] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 05:41:20] [INFO] User logged in: admin
+[2026-03-06 05:41:24] [INFO] Cleared context for element 3 in analysis 1
+[2026-03-06 05:41:26] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:41:26] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 05:41:27] [ERROR] AiApiService HTTP 429
+[2026-03-06 05:41:27] [ERROR] API Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash
+Please retry in 19.996395016s.
+[2026-03-06 05:41:27] [ERROR] AiApiService: No response from API
+[2026-03-06 05:41:28] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 05:48:44] [INFO] Cleared context for element 3 in analysis 1
+[2026-03-06 05:48:47] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:48:47] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 05:48:48] [ERROR] AiApiService HTTP 429
+[2026-03-06 05:48:48] [ERROR] API Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash
+Please retry in 59.01204815s.
+[2026-03-06 05:48:48] [ERROR] AiApiService: No response from API
+[2026-03-06 05:48:49] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 05:49:32] [INFO] Cleared context for element 3 in analysis 1
+[2026-03-06 05:50:03] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 05:50:03] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 05:50:04] [ERROR] AiApiService HTTP 429
+[2026-03-06 05:50:04] [ERROR] API Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash
+Please retry in 43.06284564s.
+[2026-03-06 05:50:04] [ERROR] AiApiService: No response from API
+[2026-03-06 05:50:04] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 06:02:25] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 06:02:26] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-9072046-B2"]
+[2026-03-06 06:02:26] [INFO] transformPatentNumber raw=US9072046B2 -> normalized=array (
+  0 => 'US-9072046-B2',
+)
+[2026-03-06 06:02:26] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true
+[2026-03-06 06:02:28] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-9072046-B2","_version":467,"_seq_no":3997210863,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":277091.36062349763,"is_challenged":"false","cpc_subclass":["H04W","H04B","Y02D"],"expiration_date":"2028-03-28T00:00:00","type":"Grant","3gpp":{"5g_declaration_date":"2018-05-16T00:00:00","4g_declaration_date":"2010-07-30T00:00:00","spec_series":["36","36","36","38","38","38"],"declarations":["IS
+[2026-03-06 06:02:28] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-9072046-B2/full-language?mode=old
+[2026-03-06 06:02:30] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-9072046-B2","claims":[{"text":"1. A user equipment (UE), comprising:\na transmitter;\na receiver; and\none or more processors configured to:\nreceive, using the receiver, a resource configuration, the resource configuration indicating a periodic reporting resource for transmitting precoding matrix indexes (PMIs);\ncontrol the receiver in the UE to have an active time, wherein the active time includes at least a time period corresponding to an on duration and a time period when an ina
+[2026-03-06 06:14:37] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 06:14:38] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-9072046-B2"]
+[2026-03-06 06:14:38] [INFO] transformPatentNumber raw=US9072046B2 -> normalized=array (
+  0 => 'US-9072046-B2',
+)
+[2026-03-06 06:14:38] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-9072046-B2?with_cases=true
+[2026-03-06 06:14:40] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-9072046-B2","_version":467,"_seq_no":3997210863,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":277091.36062349763,"is_challenged":"false","cpc_subclass":["H04W","H04B","Y02D"],"expiration_date":"2028-03-28T00:00:00","type":"Grant","3gpp":{"5g_declaration_date":"2018-05-16T00:00:00","4g_declaration_date":"2010-07-30T00:00:00","spec_series":["36","36","36","38","38","38"],"declarations":["IS
+[2026-03-06 06:14:40] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-9072046-B2/full-language?mode=old
+[2026-03-06 06:14:43] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-9072046-B2","claims":[{"text":"1. A user equipment (UE), comprising:\na transmitter;\na receiver; and\none or more processors configured to:\nreceive, using the receiver, a resource configuration, the resource configuration indicating a periodic reporting resource for transmitting precoding matrix indexes (PMIs);\ncontrol the receiver in the UE to have an active time, wherein the active time includes at least a time period corresponding to an on duration and a time period when an ina
+[2026-03-06 06:15:18] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 06:15:18] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 06:15:19] [ERROR] AiApiService HTTP 429
+[2026-03-06 06:15:19] [ERROR] API Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash
+Please retry in 27.622125986s.
+[2026-03-06 06:15:19] [ERROR] AiApiService: No response from API
+[2026-03-06 06:15:20] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 06:15:26] [INFO] Cleared context for element 3 in analysis 1
+[2026-03-06 06:15:28] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 06:15:28] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 06:15:29] [ERROR] AiApiService HTTP 429
+[2026-03-06 06:15:29] [ERROR] API Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash
+Please retry in 18.03420183s.
+[2026-03-06 06:15:29] [ERROR] AiApiService: No response from API
+[2026-03-06 06:15:30] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 09:17:46] [INFO] User logged in: admin
+[2026-03-06 09:17:54] [INFO] Cleared context for element 3 in analysis 1
+[2026-03-06 09:18:04] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:18:04] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82591}
+[2026-03-06 09:18:12] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":2315}
+[2026-03-06 09:18:13] [INFO] Generated context for 1 elements in analysis 1
+[2026-03-06 09:18:50] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 09:18:52] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-20110158165-A1"]
+[2026-03-06 09:18:52] [INFO] transformPatentNumber raw=US20110158165A1 -> normalized=array (
+  0 => 'US-20110158165-A1',
+)
+[2026-03-06 09:18:52] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-20110158165-A1?with_cases=true
+[2026-03-06 09:18:53] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-20110158165-A1","_version":346,"_seq_no":3993094689,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":null,"type":"Application","law_firm":null,"num_cit_npl":0,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as_sep":false,"alpha_score":0.46625854
+[2026-03-06 09:18:53] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-20110158165-A1/full-language?mode=old
+[2026-03-06 09:18:57] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-20110158165-A1","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service.","index":"00001","children":[{"text":"2. A method as defined in claim 1, wherein the service is voice over internet prot
+[2026-03-06 09:19:07] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:19:07] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":4267}
+[2026-03-06 09:19:16] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":2256}
+[2026-03-06 09:19:17] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:19:17] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":4692}
+[2026-03-06 09:19:27] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":1410}
+[2026-03-06 09:19:48] [INFO] Exported HTML report for analysis 1

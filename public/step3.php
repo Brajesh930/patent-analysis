@@ -183,6 +183,8 @@ if (isset($_GET['export'])) {
             <h1>🔍 Patent Analysis MVP</h1>
             <div class="header-actions">
                 <span>Analysis: <?php echo htmlspecialchars($analysis['name']); ?></span>
+                <a href="diagnostics.php" class="btn" style="background:#6c757d; color:white; padding:8px 12px; font-size:12px; margin-right:5px;">🔧 Diagnostics</a>
+                <a href="ai_config.php" class="btn" style="background:#6c757d; color:white; padding:8px 12px; font-size:12px; margin-right:10px;">⚙️ AI Config</a>
                 <a href="logout.php" class="btn btn-logout">Logout</a>
             </div>
         </header>
