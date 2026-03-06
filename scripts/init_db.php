@@ -90,8 +90,48 @@ function initDatabase() {
             )
         ");
         
+        // Create users table
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT NOT NULL UNIQUE,
+                password TEXT NOT NULL,
+                email TEXT,
+                api_key TEXT,
+                ai_provider TEXT DEFAULT 'google',
+                ai_model TEXT DEFAULT 'gemini-2.5-flash',
+                role TEXT DEFAULT 'user',
+                status TEXT DEFAULT 'pending',
+                use_mock INTEGER DEFAULT 0,
+                use_mock_patent INTEGER DEFAULT 1,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+        ");
+        
+        // Create user_analyses table (each user has their own analyses)
+        $pdo->exec("
+            CREATE TABLE IF NOT EXISTS user_analyses (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                analysis_id INTEGER NOT NULL,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
+                FOREIGN KEY(analysis_id) REFERENCES analyses(id) ON DELETE CASCADE
+            )
+        ");
+        
+        // Create default admin user
+        $adminPassword = password_hash('admin', PASSWORD_DEFAULT);
+        $stmt = $pdo->prepare("
+            INSERT INTO users (username, password, role, status, ai_provider, ai_model)
+            VALUES (?, ?, 'admin', 'approved', 'google', 'gemini-2.5-flash')
+        ");
+        $stmt->execute(['admin', $adminPassword]);
+        
         echo "[✓] Database initialized successfully at: " . $dbPath . "\n";
-        echo "[✓] Tables created: analyses, key_elements, patents, screening_results, exports\n";
+        echo "[✓] Tables created: analyses, key_elements, patents, screening_results, exports, users, user_analyses\n";
+        echo "[✓] Default admin user created: admin / admin\n";
         
         return true;
     } catch (PDOException $e) {
@@ -106,3 +146,4 @@ if (php_sapi_name() === 'cli') {
 } else {
     die("This script must be run from command line only.");
 }
+

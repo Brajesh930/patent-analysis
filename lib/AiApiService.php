@@ -24,16 +24,67 @@
 // AI PROVIDER CONFIGURATION - All Providers
 // ============================================================================
 
-// Load from saved settings first, then environment variables, then defaults
-$savedSettings = [];
-$settingsFile = __DIR__ . '/../data/ai_settings.json';
-if (file_exists($settingsFile)) {
-    $savedSettings = json_decode(file_get_contents($settingsFile), true) ?: [];
+// Function to get user settings dynamically
+function getUserSettings() {
+    $savedSettings = [];
+    
+    // Check if user is logged in and has session settings
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    if (isset($_SESSION['authenticated']) && $_SESSION['authenticated'] === true && isset($_SESSION['user_id'])) {
+        // User is logged in - try to get settings from database
+        if ($_SESSION['user_id'] > 0) {
+            // Database user - load from database
+            $dbPath = defined('DB_PATH') ? DB_PATH : __DIR__ . '/../data/app.db';
+            if (file_exists($dbPath)) {
+                try {
+                    $pdo = new PDO('sqlite:' . $dbPath);
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $pdo->exec('PRAGMA busy_timeout = 5000');
+                    $pdo->exec('PRAGMA journal_mode = WAL');
+                    $stmt = $pdo->prepare("SELECT ai_provider, ai_model, api_key, use_mock, use_mock_patent FROM users WHERE id = ?");
+                    $stmt->execute([$_SESSION['user_id']]);
+                    $userSettings = $stmt->fetch(PDO::FETCH_ASSOC);
+                    
+                    if ($userSettings) {
+                        $savedSettings = [
+                            'provider' => $userSettings['ai_provider'] ?? 'google',
+                            'model' => $userSettings['ai_model'] ?? 'gemini-2.5-flash',
+                            'api_key' => $userSettings['api_key'] ?? '',
+                            'use_mock' => $userSettings['use_mock'] ?? 0,
+                            'use_mock_patent' => $userSettings['use_mock_patent'] ?? 1
+                        ];
+                    }
+                } catch (Exception $e) {
+                    // Fall back to file settings
+                }
+            }
+        } else {
+            // Hardcoded admin - use session or file settings
+            $savedSettings = $_SESSION['ai_provider'] ?? [];
+        }
+    }
+    
+    // If no user settings, fall back to file settings
+    if (empty($savedSettings)) {
+        $settingsFile = __DIR__ . '/../data/ai_settings.json';
+        if (file_exists($settingsFile)) {
+            $savedSettings = json_decode(file_get_contents($settingsFile), true) ?: [];
+        }
+    }
+    
+    return $savedSettings;
 }
 
+// Get settings dynamically
+$savedSettings = getUserSettings();
+
 define('AI_PROVIDER', $savedSettings['provider'] ?? getenv('AI_PROVIDER') ?: 'google');
-define('USE_MOCK_AI_API', isset($savedSettings['use_mock']) ? $savedSettings['use_mock'] : (getenv('USE_MOCK_AI_API') ? getenv('USE_MOCK_AI_API') === 'true' : true));
-define('USE_MOCK_PATENT_API', isset($savedSettings['use_mock_patent']) ? $savedSettings['use_mock_patent'] : (getenv('USE_MOCK_PATENT_API') ? getenv('USE_MOCK_PATENT_API') === 'true' : true));
+// Always use real API - no mock mode
+define('USE_MOCK_AI_API', false);
+define('USE_MOCK_PATENT_API', false);
 
 $GLOBALS['AI_PROVIDERS'] = [
     // ========================================================================

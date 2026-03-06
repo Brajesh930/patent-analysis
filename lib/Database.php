@@ -11,6 +11,8 @@ class Database {
         try {
             $this->pdo = new PDO('sqlite:' . DB_PATH);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo->exec('PRAGMA busy_timeout = 5000');
+            $this->pdo->exec('PRAGMA journal_mode = WAL');
         } catch (PDOException $e) {
             Logger::error("Database connection failed: " . $e->getMessage());
             die("Database connection error. Please run: php scripts/init_db.php");
@@ -204,5 +206,124 @@ class Database {
             VALUES (?, ?, ?, CURRENT_TIMESTAMP)
         ");
         return $stmt->execute([$analysisId, $exportType, $filePath]);
+    }
+    
+    // ========================================================================
+    // USERS
+    // ========================================================================
+    
+    public function createUser($username, $password, $email = null, $apiKey = null, $aiProvider = 'google', $aiModel = 'gemini-2.5-flash') {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->pdo->prepare("
+            INSERT INTO users (username, password, email, api_key, ai_provider, ai_model, role, status, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, 'user', 'pending', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+        ");
+        $stmt->execute([$username, $hashedPassword, $email, $apiKey, $aiProvider, $aiModel]);
+        return $this->pdo->lastInsertId();
+    }
+    
+    public function getUserByUsername($username) {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt->execute([$username]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    public function getUserById($id) {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    public function getAllUsers() {
+        $stmt = $this->pdo->query("SELECT id, username, email, role, status, ai_provider, ai_model, use_mock, use_mock_patent, created_at, updated_at FROM users ORDER BY created_at DESC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public function getPendingUsers() {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE status = 'pending' ORDER BY created_at DESC");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public function updateUserStatus($userId, $status) {
+        $stmt = $this->pdo->prepare("UPDATE users SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
+        return $stmt->execute([$status, $userId]);
+    }
+    
+    public function updateUser($userId, $data) {
+        $fields = [];
+        $values = [];
+        
+        if (isset($data['email'])) {
+            $fields[] = 'email = ?';
+            $values[] = $data['email'];
+        }
+        if (isset($data['api_key'])) {
+            $fields[] = 'api_key = ?';
+            $values[] = $data['api_key'];
+        }
+        if (isset($data['ai_provider'])) {
+            $fields[] = 'ai_provider = ?';
+            $values[] = $data['ai_provider'];
+        }
+        if (isset($data['ai_model'])) {
+            $fields[] = 'ai_model = ?';
+            $values[] = $data['ai_model'];
+        }
+        if (isset($data['use_mock'])) {
+            $fields[] = 'use_mock = ?';
+            $values[] = $data['use_mock'];
+        }
+        if (isset($data['use_mock_patent'])) {
+            $fields[] = 'use_mock_patent = ?';
+            $values[] = $data['use_mock_patent'];
+        }
+        if (isset($data['password'])) {
+            $fields[] = 'password = ?';
+            $values[] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
+        
+        if (empty($fields)) {
+            return false;
+        }
+        
+        $fields[] = 'updated_at = CURRENT_TIMESTAMP';
+        $values[] = $userId;
+        
+        $sql = "UPDATE users SET " . implode(', ', $fields) . " WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($values);
+    }
+    
+    public function deleteUser($userId) {
+        $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = ?");
+        return $stmt->execute([$userId]);
+    }
+    
+    public function userExists($username) {
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
+        $stmt->execute([$username]);
+        return $stmt->fetchColumn() > 0;
+    }
+    
+    // Link analysis to user
+    public function linkAnalysisToUser($userId, $analysisId) {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO user_analyses (user_id, analysis_id, created_at)
+            VALUES (?, ?, CURRENT_TIMESTAMP)
+        ");
+        return $stmt->execute([$userId, $analysisId]);
+    }
+    
+    // Get analyses for a user
+    public function getUserAnalyses($userId) {
+        $stmt = $this->pdo->prepare("
+            SELECT a.* FROM analyses a
+            INNER JOIN user_analyses ua ON a.id = ua.analysis_id
+            WHERE ua.user_id = ?
+            ORDER BY a.created_at DESC
+        ");
+        $stmt->execute([$userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

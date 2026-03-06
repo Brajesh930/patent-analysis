@@ -9,10 +9,10 @@
 define('DB_PATH', __DIR__ . '/../data/app.db');
 
 // ============================================================================
-// AUTHENTICATION (SIMPLE SINGLE-USER)
+// AUTHENTICATION (MULTI-USER SUPPORT)
 // ============================================================================
 define('ADMIN_USERNAME', 'admin');
-define('ADMIN_PASSWORD', 'admin'); // TODO: use hashed password in production
+define('ADMIN_PASSWORD', 'admin'); // Fallback for legacy admin
 define('SESSION_TIMEOUT', 3600); // 1 hour
 
 // ============================================================================
@@ -75,3 +75,103 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) >
 if (php_sapi_name() !== 'cli') {
     $_SESSION['last_activity'] = time();
 }
+
+// ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Check if current user is authenticated
+ */
+function isAuthenticated() {
+    return isset($_SESSION['authenticated']) && $_SESSION['authenticated'] === true;
+}
+
+/**
+ * Check if current user is an admin
+ */
+function isAdmin() {
+    return isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+}
+
+/**
+ * Get current user ID
+ */
+function getCurrentUserId() {
+    return $_SESSION['user_id'] ?? 0;
+}
+
+/**
+ * Get current username
+ */
+function getCurrentUsername() {
+    return $_SESSION['username'] ?? 'guest';
+}
+
+/**
+ * Load user-specific AI configuration from database
+ * This should be called after authentication
+ */
+function loadUserAiConfig() {
+    if (!isAuthenticated()) {
+        return;
+    }
+    
+    // If user is from database (not hardcoded admin)
+    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] > 0) {
+        // AI config is already loaded in session from login
+        // Update global AI settings from session
+        global $aiProvider, $aiModel, $apiKey, $useMock, $useMockPatent;
+        
+        if (isset($_SESSION['ai_provider'])) {
+            $aiProvider = $_SESSION['ai_provider'];
+        }
+        if (isset($_SESSION['ai_model'])) {
+            $aiModel = $_SESSION['ai_model'];
+        }
+        if (isset($_SESSION['use_mock'])) {
+            $useMock = $_SESSION['use_mock'];
+        }
+        if (isset($_SESSION['use_mock_patent'])) {
+            $useMockPatent = $_SESSION['use_mock_patent'];
+        }
+        
+        // Load API key from database
+        require_once __DIR__ . '/../lib/Database.php';
+        $db = Database::getInstance();
+        $user = $db->getUserById($_SESSION['user_id']);
+        
+        if ($user && !empty($user['api_key'])) {
+            $apiKey = $user['api_key'];
+        }
+    }
+}
+
+/**
+ * Require authentication - redirect to login if not authenticated
+ */
+function requireAuth() {
+    if (!isAuthenticated()) {
+        if (php_sapi_name() !== 'cli') {
+            header('Location: login.php');
+            exit;
+        }
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Require admin role - redirect to index if not admin
+ */
+function requireAdmin() {
+    if (!isAuthenticated() || !isAdmin()) {
+        if (php_sapi_name() !== 'cli') {
+            header('Location: index.php');
+            exit;
+        }
+        return false;
+    }
+    return true;
+}
+

@@ -801,3 +801,263 @@ Please retry in 18.03420183s.
 [2026-03-06 09:19:17] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":4692}
 [2026-03-06 09:19:27] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":1410}
 [2026-03-06 09:19:48] [INFO] Exported HTML report for analysis 1
+[2026-03-06 09:48:38] [INFO] User logged out: admin
+[2026-03-06 09:48:44] [INFO] User logged in: admin (ID: 1, Role: admin)
+[2026-03-06 09:49:05] [INFO] User 1 updated AI config: Provider=openai, Model=gpt-4
+[2026-03-06 09:49:31] [INFO] Analysis created: ID=1, Name=test open ai
+[2026-03-06 09:49:33] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 09:49:35] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-20110158165-A1"]
+[2026-03-06 09:49:35] [INFO] transformPatentNumber raw=US20110158165A1 -> normalized=array (
+  0 => 'US-20110158165-A1',
+)
+[2026-03-06 09:49:35] [INFO] Normalized seed value saved for analysis 1: US-20110158165-A1
+[2026-03-06 09:49:35] [INFO] PatentProvider: Fetching real patent data for: US-20110158165-A1 (useProxy=)
+[2026-03-06 09:49:35] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-20110158165-A1?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 09:49:35] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-20110158165-A1?with_cases=true
+[2026-03-06 09:49:37] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-20110158165-A1","_version":346,"_seq_no":3993094689,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":null,"type":"Application","law_firm":null,"num_cit_npl":0,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as_sep":false,"alpha_score":0.46625854
+[2026-03-06 09:49:37] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-20110158165-A1","_version":346,"_seq_no":3993094689,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":null,"type":"Application","law_firm":null,"num_cit_npl":0,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as_sep":false,"alpha_score":0.46625854...
+[2026-03-06 09:49:37] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-20110158165-A1/full-language?mode=old
+[2026-03-06 09:49:39] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-20110158165-A1","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service.","index":"00001","children":[{"text":"2. A method as defined in claim 1, wherein the service is voice over internet prot
+[2026-03-06 09:49:39] [INFO] Fetched seed patent text for analysis 1 using number US-20110158165-A1
+[2026-03-06 09:49:48] [INFO] Added 1 key elements to analysis 1
+[2026-03-06 09:49:52] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:49:52] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":81986}
+[2026-03-06 09:50:05] [API_RESP] API RESPONSE | Service: AiAPI | Status: 200 | Response: {"response_length":2059}
+[2026-03-06 09:50:05] [INFO] Generated context for 1 elements in analysis 1
+[2026-03-06 09:50:37] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 09:50:38] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-06 09:50:38] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-06 09:50:38] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-06 09:50:40] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-06 09:50:40] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-06 09:50:43] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-06 09:50:43] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:50:43] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":4590}
+[2026-03-06 09:50:43] [ERROR] AiApiService HTTP 403
+[2026-03-06 09:50:43] [ERROR] API Error: Your API key was reported as leaked. Please use another API key.
+[2026-03-06 09:50:43] [ERROR] AiApiService: No response from API
+[2026-03-06 09:50:54] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:50:54] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":4590}
+[2026-03-06 09:50:54] [ERROR] AiApiService HTTP 403
+[2026-03-06 09:50:54] [ERROR] API Error: Your API key was reported as leaked. Please use another API key.
+[2026-03-06 09:50:54] [ERROR] AiApiService: No response from API
+[2026-03-06 09:51:26] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 09:51:28] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-06 09:51:28] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-06 09:51:28] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-06 09:51:29] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-06 09:51:29] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-06 09:51:32] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-06 09:51:48] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 09:51:50] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["WO-2011002974-A1"]
+[2026-03-06 09:51:50] [INFO] transformPatentNumber raw=WO2011002974A1 -> normalized=array (
+  0 => 'WO-2011002974-A1',
+)
+[2026-03-06 09:51:50] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/WO-2011002974-A1?with_cases=true
+[2026-03-06 09:51:51] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"WO-2011002974-A1","_version":297,"_seq_no":3990251449,"_primary_term":1,"found":true,"_source":{"country":"WO","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2012-01-02T00:00:00","type":"Application","law_firm":null,"num_cit_npl":6,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as_sep":false,"alpha_s
+[2026-03-06 09:51:51] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/WO-2011002974-A1/full-language?mode=old
+[2026-03-06 09:51:53] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"WO-2011002974-A1","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and responsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service.","index":"1","children":[{"text":"2. A method as defined in claim 1, wherein the service is voice over internet protocol m
+[2026-03-06 09:52:02] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:52:02] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":4590}
+[2026-03-06 09:52:02] [ERROR] AiApiService HTTP 403
+[2026-03-06 09:52:02] [ERROR] API Error: Your API key was reported as leaked. Please use another API key.
+[2026-03-06 09:52:02] [ERROR] AiApiService: No response from API
+[2026-03-06 09:52:03] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:52:03] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":4280}
+[2026-03-06 09:52:03] [ERROR] AiApiService HTTP 403
+[2026-03-06 09:52:03] [ERROR] API Error: Your API key was reported as leaked. Please use another API key.
+[2026-03-06 09:52:03] [ERROR] AiApiService: No response from API
+[2026-03-06 09:53:08] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:53:08] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":4590}
+[2026-03-06 09:53:08] [ERROR] AiApiService HTTP 403
+[2026-03-06 09:53:08] [ERROR] API Error: Your API key was reported as leaked. Please use another API key.
+[2026-03-06 09:53:08] [ERROR] AiApiService: No response from API
+[2026-03-06 09:53:09] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:53:09] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":4280}
+[2026-03-06 09:53:09] [ERROR] AiApiService HTTP 403
+[2026-03-06 09:53:09] [ERROR] API Error: Your API key was reported as leaked. Please use another API key.
+[2026-03-06 09:53:09] [ERROR] AiApiService: No response from API
+[2026-03-06 09:53:56] [INFO] User logged out: admin
+[2026-03-06 09:54:44] [INFO] New user registered: brajesh (pending approval)
+[2026-03-06 09:55:10] [INFO] User logged in: admin (ID: 1, Role: admin)
+[2026-03-06 09:55:22] [INFO] User 2 approved by admin
+[2026-03-06 09:55:45] [INFO] User logged in: brajesh (ID: 2, Role: user)
+[2026-03-06 09:56:10] [INFO] Analysis created: ID=2, Name=test oprnai 1
+[2026-03-06 09:56:11] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 09:56:13] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-06 09:56:13] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-06 09:56:13] [INFO] Normalized seed value saved for analysis 2: US-8837357-B2
+[2026-03-06 09:56:13] [INFO] PatentProvider: Fetching real patent data for: US-8837357-B2 (useProxy=)
+[2026-03-06 09:56:13] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 09:56:13] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-06 09:56:14] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-06 09:56:14] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-06 09:56:14] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-06 09:56:17] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-06 09:56:17] [INFO] Fetched seed patent text for analysis 2 using number US-8837357-B2
+[2026-03-06 09:56:26] [INFO] Added 1 key elements to analysis 2
+[2026-03-06 09:56:30] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 09:56:30] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82567}
+[2026-03-06 09:56:31] [ERROR] AiApiService HTTP 403
+[2026-03-06 09:56:31] [ERROR] API Error: Your API key was reported as leaked. Please use another API key.
+[2026-03-06 09:56:31] [ERROR] AiApiService: No response from API
+[2026-03-06 09:56:31] [INFO] Generated context for 0 elements in analysis 2
+[2026-03-06 10:00:53] [INFO] User logged out: brajesh
+[2026-03-06 10:05:45] [INFO] User logged in: brajesh (ID: 2, Role: user)
+[2026-03-06 10:08:19] [INFO] Cleared context for element 2 in analysis 2
+[2026-03-06 10:08:22] [INFO] AI API Call - Provider: openai, Model: gpt-4
+[2026-03-06 10:08:22] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://api.openai.com/v1/chat/completions | Params: {"prompt_length":82567}
+[2026-03-06 10:08:23] [ERROR] AiApiService HTTP 404
+[2026-03-06 10:08:23] [ERROR] API Error: The model `gpt-4` does not exist or you do not have access to it.
+[2026-03-06 10:08:23] [ERROR] AiApiService: No response from API
+[2026-03-06 10:08:24] [INFO] Generated context for 0 elements in analysis 2
+[2026-03-06 10:08:42] [INFO] User logged out: admin
+[2026-03-06 10:08:50] [INFO] User logged in: admin (ID: 1, Role: admin)
+[2026-03-06 10:09:03] [INFO] AI API Call - Provider: openai, Model: gpt-4
+[2026-03-06 10:09:03] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://api.openai.com/v1/chat/completions | Params: {"prompt_length":82567}
+[2026-03-06 10:09:04] [ERROR] AiApiService HTTP 404
+[2026-03-06 10:09:04] [ERROR] API Error: The model `gpt-4` does not exist or you do not have access to it.
+[2026-03-06 10:09:04] [ERROR] AiApiService: No response from API
+[2026-03-06 10:09:04] [INFO] Generated context for 0 elements in analysis 2
+[2026-03-06 10:10:51] [INFO] Analysis created: ID=1, Name=test open ai api
+[2026-03-06 10:11:00] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 10:11:01] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-06 10:11:01] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-06 10:11:01] [INFO] Normalized seed value saved for analysis 1: US-8837357-B2
+[2026-03-06 10:11:01] [INFO] PatentProvider: Fetching real patent data for: US-8837357-B2 (useProxy=)
+[2026-03-06 10:11:01] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 10:11:01] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-06 10:11:02] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-06 10:11:02] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-06 10:11:02] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-06 10:11:06] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-06 10:11:06] [INFO] Fetched seed patent text for analysis 1 using number US-8837357-B2
+[2026-03-06 10:11:19] [INFO] Added 1 key elements to analysis 1
+[2026-03-06 10:11:22] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 10:11:22] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82568}
+[2026-03-06 10:11:23] [ERROR] AiApiService HTTP 403
+[2026-03-06 10:11:23] [ERROR] API Error: Your API key was reported as leaked. Please use another API key.
+[2026-03-06 10:11:23] [ERROR] AiApiService: No response from API
+[2026-03-06 10:11:24] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 10:11:53] [INFO] User 2 updated AI config: Provider=openai, Model=gpt-4
+[2026-03-06 10:12:08] [INFO] User logged out: admin
+[2026-03-06 10:12:16] [INFO] User logged in: admin (ID: 1, Role: admin)
+[2026-03-06 10:12:41] [INFO] User 2 updated AI config: Provider=openai, Model=gpt-4
+[2026-03-06 10:12:59] [INFO] User 1 updated AI config: Provider=openai, Model=gpt-4
+[2026-03-06 10:13:11] [INFO] AI API Call - Provider: openai, Model: gpt-4
+[2026-03-06 10:13:11] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://api.openai.com/v1/chat/completions | Params: {"prompt_length":82568}
+[2026-03-06 10:13:11] [ERROR] AiApiService HTTP 404
+[2026-03-06 10:13:11] [ERROR] API Error: The model `gpt-4` does not exist or you do not have access to it.
+[2026-03-06 10:13:11] [ERROR] AiApiService: No response from API
+[2026-03-06 10:13:12] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 10:18:03] [INFO] User 1 updated AI config: Provider=openai, Model=gpt-4
+[2026-03-06 10:18:12] [INFO] AI API Call - Provider: openai, Model: gpt-4
+[2026-03-06 10:18:12] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://api.openai.com/v1/chat/completions | Params: {"prompt_length":82568}
+[2026-03-06 10:18:13] [ERROR] AiApiService HTTP 404
+[2026-03-06 10:18:13] [ERROR] API Error: The model `gpt-4` does not exist or you do not have access to it.
+[2026-03-06 10:18:13] [ERROR] AiApiService: No response from API
+[2026-03-06 10:18:13] [INFO] Generated context for 0 elements in analysis 1
+[2026-03-06 10:19:52] [INFO] User logged out: admin
+[2026-03-06 10:20:00] [INFO] User logged in: admin (ID: 1, Role: admin)
+[2026-03-06 10:20:18] [INFO] Analysis created: ID=2, Name=open ai test
+[2026-03-06 10:20:19] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 10:20:22] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-06 10:20:22] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-06 10:20:22] [INFO] Normalized seed value saved for analysis 2: US-8837357-B2
+[2026-03-06 10:20:22] [INFO] PatentProvider: Fetching real patent data for: US-8837357-B2 (useProxy=)
+[2026-03-06 10:20:22] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 10:20:22] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-06 10:20:23] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-06 10:20:23] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-06 10:20:23] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-06 10:20:26] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-06 10:20:26] [INFO] Fetched seed patent text for analysis 2 using number US-8837357-B2
+[2026-03-06 10:20:34] [INFO] Added 1 key elements to analysis 2
+[2026-03-06 10:20:37] [INFO] AI API Call - Provider: openai, Model: gpt-4
+[2026-03-06 10:20:37] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://api.openai.com/v1/chat/completions | Params: {"prompt_length":82567}
+[2026-03-06 10:20:38] [ERROR] AiApiService HTTP 404
+[2026-03-06 10:20:38] [ERROR] API Error: The model `gpt-4` does not exist or you do not have access to it.
+[2026-03-06 10:20:38] [ERROR] AiApiService: No response from API
+[2026-03-06 10:20:39] [INFO] Generated context for 0 elements in analysis 2
+[2026-03-06 10:21:40] [INFO] Analysis created: ID=3, Name=oprn ai test
+[2026-03-06 10:21:45] [INFO] Added 1 key elements to analysis 3
+[2026-03-06 10:21:55] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 10:21:56] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-06 10:21:56] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-06 10:21:56] [INFO] Normalized seed value saved for analysis 3: US-8837357-B2
+[2026-03-06 10:21:56] [INFO] PatentProvider: Fetching real patent data for: US-8837357-B2 (useProxy=)
+[2026-03-06 10:21:56] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 10:21:56] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-06 10:21:58] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-06 10:21:58] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-06 10:21:58] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-06 10:22:02] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-06 10:22:02] [INFO] Fetched seed patent text for analysis 3 using number US-8837357-B2
+[2026-03-06 10:22:05] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 10:22:05] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyD7WzSSJ-KPl96nwm-_qZg7bS_RLcHj2H4 | Params: {"prompt_length":82567}
+[2026-03-06 10:22:06] [ERROR] AiApiService HTTP 403
+[2026-03-06 10:22:06] [ERROR] API Error: Your API key was reported as leaked. Please use another API key.
+[2026-03-06 10:22:06] [ERROR] AiApiService: No response from API
+[2026-03-06 10:22:06] [INFO] Generated context for 0 elements in analysis 3
+[2026-03-06 10:22:25] [INFO] User logged out: brajesh
+[2026-03-06 10:22:50] [INFO] Failed login attempt for user: brajesh
+[2026-03-06 10:23:24] [INFO] New user registered: brajesh (pending approval)
+[2026-03-06 10:23:31] [INFO] User 2 approved by admin
+[2026-03-06 10:23:33] [INFO] User logged in: brajesh (ID: 2, Role: user)
+[2026-03-06 10:23:54] [INFO] Analysis created: ID=4, Name=op
+[2026-03-06 10:23:59] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 10:24:00] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-06 10:24:00] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-06 10:24:00] [INFO] Normalized seed value saved for analysis 4: US-8837357-B2
+[2026-03-06 10:24:00] [INFO] PatentProvider: Fetching real patent data for: US-8837357-B2 (useProxy=)
+[2026-03-06 10:24:00] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 10:24:00] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-06 10:24:01] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-06 10:24:01] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-06 10:24:01] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-06 10:24:04] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-06 10:24:04] [INFO] Fetched seed patent text for analysis 4 using number US-8837357-B2
+[2026-03-06 10:24:10] [INFO] Added 1 key elements to analysis 4
+[2026-03-06 10:24:14] [INFO] AI API Call - Provider: openai, Model: gpt-4
+[2026-03-06 10:24:14] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://api.openai.com/v1/chat/completions | Params: {"prompt_length":82567}
+[2026-03-06 10:24:15] [ERROR] AiApiService HTTP 404
+[2026-03-06 10:24:15] [ERROR] API Error: The model `gpt-4` does not exist or you do not have access to it.
+[2026-03-06 10:24:15] [ERROR] AiApiService: No response from API
+[2026-03-06 10:24:15] [INFO] Generated context for 0 elements in analysis 4
+[2026-03-06 10:29:54] [INFO] User 2 updated AI config: Provider=google, Model=gemini-2.5-flash
+[2026-03-06 10:30:16] [INFO] Analysis created: ID=5, Name=test
+[2026-03-06 10:30:19] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/helpers/transform-publication-numbers
+[2026-03-06 10:30:21] [DEBUG] PatentAPI httpRequest response (HTTP 200): ["US-8837357-B2"]
+[2026-03-06 10:30:21] [INFO] transformPatentNumber raw=US8837357B2 -> normalized=array (
+  0 => 'US-8837357-B2',
+)
+[2026-03-06 10:30:21] [INFO] Normalized seed value saved for analysis 5: US-8837357-B2
+[2026-03-06 10:30:21] [INFO] PatentProvider: Fetching real patent data for: US-8837357-B2 (useProxy=)
+[2026-03-06 10:30:21] [API_REQ] API REQUEST | Service: PatentAPI | Method: GET | URL: https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true | Params: {"scope":"claims+abstract"}
+[2026-03-06 10:30:21] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2?with_cases=true
+[2026-03-06 10:30:22] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as
+[2026-03-06 10:30:22] [API_RESP] API RESPONSE | Service: PatentAPI | Status: 200 | Response: {"_index":"v6","_type":"_doc","_id":"US-8837357-B2","_version":868,"_seq_no":3992340249,"_primary_term":2,"found":true,"_source":{"country":"US","assignee_original":["Blackberry Ltd"],"family_annuities":35962.84914754439,"is_challenged":"false","cpc_subclass":["H04W"],"expiration_date":"2031-11-15T00:00:00","type":"Grant","law_firm":"Hanley, Flight & Zimmerman LLC","num_cit_npl":99,"avc_v1a_ft_c":{"spec_series":null,"pools":["ITU-T HEVC Declarants","Avanci Video","Access Streaming"],"declared_as...
+[2026-03-06 10:30:22] [INFO] httpRequest using php-curl for https://api.unifiedpatents.com/patents/US-8837357-B2/full-language?mode=old
+[2026-03-06 10:30:25] [DEBUG] PatentAPI httpRequest response (HTTP 200): {"ucid":"US-8837357-B2","claims":[{"text":"1. A method of a mobility manager, the method comprising:\nreceiving a mobile network request for registering with a mobile network; and\nresponsive to the mobile network request, sending a response including an area identity list and an identifier indicating whether an area identified in the area identity list supports a service, wherein the identifier indicates that a first area in the area identity list supports the service and the identifier indicat
+[2026-03-06 10:30:25] [INFO] Fetched seed patent text for analysis 5 using number US-8837357-B2
+[2026-03-06 10:30:34] [INFO] Added 1 key elements to analysis 5
+[2026-03-06 10:30:37] [INFO] AI API Call - Provider: google, Model: gemini-2.5-flash
+[2026-03-06 10:30:37] [API_REQ] API REQUEST | Service: AiAPI | Method: POST | URL: https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=AIzaSyCaN50KgLHM1gtfoHhakyUBH76cVEKVDnY | Params: {"prompt_length":82567}
+[2026-03-06 10:30:38] [ERROR] AiApiService HTTP 429
+[2026-03-06 10:30:38] [ERROR] API Error: You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+[2026-03-06 10:30:38] [ERROR] AiApiService: No response from API
+[2026-03-06 10:30:38] [INFO] Generated context for 0 elements in analysis 5

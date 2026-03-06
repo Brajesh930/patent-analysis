@@ -9,17 +9,37 @@ if (!isset($_SESSION['authenticated'])) {
     exit;
 }
 
-// Load unified AI service (consolidated from config/ai-config.php and lib/AiProvider.php)
+// Load unified AI service
 require_once __DIR__ . '/../lib/AiApiService.php';
 
-$configFile = __DIR__ . '/../data/ai_settings.json';
-$settings = [];
+$db = Database::getInstance();
 $message = '';
 $errorMsg = '';
 
-// Load existing settings
-if (file_exists($configFile)) {
-    $settings = json_decode(file_get_contents($configFile), true) ?: [];
+// Get current user
+$userId = $_SESSION['user_id'] ?? 0;
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+
+// Load user settings from database
+if ($userId > 0) {
+    $user = $db->getUserById($userId);
+    $currentProvider = $user['ai_provider'] ?? 'google';
+    $currentModel = $user['ai_model'] ?? 'gemini-2.5-flash';
+    $currentApiKey = $user['api_key'] ?? '';
+    $useMockMode = $user['use_mock'] ?? 0;
+    $useMockPatentMode = $user['use_mock_patent'] ?? 1;
+} else {
+    // Fallback for hardcoded admin - load from file
+    $configFile = __DIR__ . '/../data/ai_settings.json';
+    $settings = [];
+    if (file_exists($configFile)) {
+        $settings = json_decode(file_get_contents($configFile), true) ?: [];
+    }
+    $currentProvider = $settings['provider'] ?? 'google';
+    $currentModel = $settings['model'] ?? 'gemini-2.5-flash';
+    $currentApiKey = $settings['api_key'] ?? '';
+    $useMockMode = $settings['use_mock'] ?? 0;
+    $useMockPatentMode = $settings['use_mock_patent'] ?? 1;
 }
 
 // Define available models for each provider
@@ -66,41 +86,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             throw new Exception('Please select a model.');
         }
         
-        $settings = [
-            'provider' => $provider,
-            'model' => $model,
-            'api_key' => $apiKey,
-            'use_mock' => $useMock,
-            'use_mock_patent' => $useMockPatent,
-            'updated_at' => date('Y-m-d H:i:s')
-        ];
-        
-        // Create data directory if it doesn't exist
-        if (!is_dir(dirname($configFile))) {
-            mkdir(dirname($configFile), 0755, true);
+        // Update user settings in database
+        if ($userId > 0) {
+            $db->updateUser($userId, [
+                'ai_provider' => $provider,
+                'ai_model' => $model,
+                'api_key' => $apiKey,
+                'use_mock' => $useMock,
+                'use_mock_patent' => $useMockPatent
+            ]);
+            
+            // Update session
+            $_SESSION['ai_provider'] = $provider;
+            $_SESSION['ai_model'] = $model;
+            $_SESSION['use_mock'] = $useMock;
+            $_SESSION['use_mock_patent'] = $useMockPatent;
+            
+            $message = 'Your AI configuration has been saved!';
+            Logger::info("User $userId updated AI config: Provider=$provider, Model=$model");
+        } else {
+            // Fallback for hardcoded admin - save to file
+            $configFile = __DIR__ . '/../data/ai_settings.json';
+            $settings = [
+                'provider' => $provider,
+                'model' => $model,
+                'api_key' => $apiKey,
+                'use_mock' => $useMock,
+                'use_mock_patent' => $useMockPatent,
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+            
+            if (!is_dir(dirname($configFile))) {
+                mkdir(dirname($configFile), 0755, true);
+            }
+            
+            file_put_contents($configFile, json_encode($settings, JSON_PRETTY_PRINT));
+            
+            $_SESSION['ai_provider'] = $provider;
+            $_SESSION['ai_model'] = $model;
+            $_SESSION['use_mock'] = $useMock;
+            $_SESSION['use_mock_patent'] = $useMockPatent;
+            
+            $message = 'AI configuration saved successfully!';
+            Logger::info("Admin updated AI config: Provider=$provider, Model=$model");
         }
-        
-        file_put_contents($configFile, json_encode($settings, JSON_PRETTY_PRINT));
-        
-        $_SESSION['ai_provider'] = $provider;
-        $_SESSION['ai_model'] = $model;
-        $_SESSION['use_mock'] = $useMock;
-        $_SESSION['use_mock_patent'] = $useMockPatent;
-        
-        $message = 'Configuration saved successfully!';
-        Logger::info("AI configuration updated: Provider=$provider, Model=$model, UseMock=$useMock, UseMockPatent=$useMockPatent");
     } catch (Exception $e) {
         $errorMsg = 'Error saving configuration: ' . $e->getMessage();
         Logger::error("Failed to save AI config: " . $e->getMessage());
     }
 }
 
-// Get current settings from file or defaults
-$currentProvider = $settings['provider'] ?? 'google';
-$currentModel = $settings['model'] ?? 'gemini-2.5-flash';
-$currentApiKey = $settings['api_key'] ?? '';
-$useMockMode = $settings['use_mock'] ?? false;
-$useMockPatentMode = $settings['use_mock_patent'] ?? false;
+// Refresh current values after potential save
+if ($userId > 0) {
+    $user = $db->getUserById($userId);
+    $currentProvider = $user['ai_provider'] ?? 'google';
+    $currentModel = $user['ai_model'] ?? 'gemini-2.5-flash';
+    $currentApiKey = $user['api_key'] ?? '';
+    $useMockMode = $user['use_mock'] ?? 0;
+    $useMockPatentMode = $user['use_mock_patent'] ?? 1;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -153,6 +197,7 @@ $useMockPatentMode = $settings['use_mock_patent'] ?? false;
             border-radius: 4px;
             font-size: 14px;
             font-family: inherit;
+            box-sizing: border-box;
         }
         
         .form-group select:focus,
@@ -228,25 +273,12 @@ $useMockPatentMode = $settings['use_mock_patent'] ?? false;
             border: 1px solid #f5c6cb;
         }
         
-        .models-grid {
-            background: #f9f9f9;
-            padding: 12px;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-        
         .test-connection {
             margin-top: 20px;
             padding: 15px;
             background: #fffbea;
             border-left: 4px solid #ffc107;
             border-radius: 4px;
-        }
-        
-        .test-connection button {
-            margin-top: 10px;
-            padding: 8px 15px;
-            font-size: 12px;
         }
     </style>
 </head>
@@ -264,7 +296,7 @@ $useMockPatentMode = $settings['use_mock_patent'] ?? false;
             <div class="config-container">
                 <div class="config-header">
                     <h2>⚙️ AI Configuration</h2>
-                    <p>Configure your AI provider, model, and API key</p>
+                    <p>Configure your personal AI provider, model, and API key</p>
                 </div>
 
                 <?php if ($message): ?>
@@ -327,7 +359,7 @@ $useMockPatentMode = $settings['use_mock_patent'] ?? false;
                         <input type="password" id="api_key" name="api_key" 
                                value="<?php echo htmlspecialchars($currentApiKey); ?>" 
                                placeholder="Enter your API key">
-                        <small>Your API key is stored securely and used only for API calls</small>
+                        <small>Your API key is stored securely in your account</small>
                     </div>
 
                     <!-- Mock Mode Toggle -->
@@ -358,15 +390,10 @@ $useMockPatentMode = $settings['use_mock_patent'] ?? false;
                     </div>
                 </form>
 
-                <!-- Test Connection -->
+                <!-- Info -->
                 <div class="test-connection">
-                    <strong>ℹ️ Note:</strong> After saving, your configuration will be active immediately. 
-                    The application will use this AI provider for:
-                    <ul style="margin: 10px 0 0 20px;">
-                        <li>Generating element context</li>
-                        <li>Screening patents for relevance</li>
-                        <li>All AI-powered features</li>
-                    </ul>
+                    <strong>ℹ️ Note:</strong> Each user can have their own AI configuration. 
+                    Your settings are saved to your account and will be used for all your analyses.
                 </div>
             </div>
         </main>
@@ -419,19 +446,14 @@ $useMockPatentMode = $settings['use_mock_patent'] ?? false;
             const modelSelect = document.getElementById('ai_model');
             const models = modelsByProvider[provider] || {};
             
-            // Store current selection before clearing
             let selectedModel = modelSelect.value;
-            
-            // Clear existing options
             modelSelect.innerHTML = '';
             
-            // Add new options
             for (const [modelId, modelLabel] of Object.entries(models)) {
                 const option = document.createElement('option');
                 option.value = modelId;
                 option.textContent = modelLabel;
                 
-                // Check if this is the current saved model from PHP or previously selected
                 if (modelId === currentModel && provider === currentProvider) {
                     option.selected = true;
                     selectedModel = modelId;
@@ -442,12 +464,10 @@ $useMockPatentMode = $settings['use_mock_patent'] ?? false;
                 modelSelect.appendChild(option);
             }
             
-            // If nothing selected, select the first one
             if (!selectedModel && modelSelect.options.length > 0) {
                 modelSelect.options[0].selected = true;
             }
             
-            // Update provider info
             const info = providerInfos[provider] || {};
             document.getElementById('providerInfo').innerHTML = `
                 <strong>ℹ️ ${info.name}</strong><br>
@@ -456,10 +476,10 @@ $useMockPatentMode = $settings['use_mock_patent'] ?? false;
             `;
         }
 
-        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateModels();
         });
     </script>
 </body>
 </html>
+

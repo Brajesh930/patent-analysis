@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../lib/Database.php';
 require_once __DIR__ . '/../lib/Logger.php';
 
 $error = '';
@@ -8,15 +9,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     
-    if ($username === ADMIN_USERNAME && $password === ADMIN_PASSWORD) {
-        $_SESSION['authenticated'] = true;
-        $_SESSION['username'] = $username;
-        Logger::info("User logged in: $username");
-        header('Location: index.php');
-        exit;
+    if (empty($username) || empty($password)) {
+        $error = 'Username and password are required.';
     } else {
-        $error = 'Invalid credentials';
-        Logger::info("Failed login attempt for user: $username");
+        $db = Database::getInstance();
+        $user = $db->getUserByUsername($username);
+        
+        if ($user) {
+            // Database user - verify password and check status
+            if (password_verify($password, $user['password'])) {
+                if ($user['status'] === 'approved') {
+                    // Login successful
+                    $_SESSION['authenticated'] = true;
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['username'] = $user['username'];
+                    $_SESSION['role'] = $user['role'];
+                    $_SESSION['ai_provider'] = $user['ai_provider'];
+                    $_SESSION['ai_model'] = $user['ai_model'];
+                    $_SESSION['use_mock'] = $user['use_mock'];
+                    $_SESSION['use_mock_patent'] = $user['use_mock_patent'];
+                    
+                    Logger::info("User logged in: $username (ID: {$user['id']}, Role: {$user['role']})");
+                    header('Location: index.php');
+                    exit;
+                } elseif ($user['status'] === 'pending') {
+                    $error = 'Your account is pending approval. Please wait for an administrator to approve your account.';
+                    Logger::info("Pending login attempt for user: $username");
+                } elseif ($user['status'] === 'rejected') {
+                    $error = 'Your account has been rejected. Please contact the administrator.';
+                    Logger::info("Rejected login attempt for user: $username");
+                } else {
+                    $error = 'Your account is not active. Please contact the administrator.';
+                }
+            } else {
+                $error = 'Invalid credentials';
+                Logger::info("Failed login attempt for user: $username (wrong password)");
+            }
+        } else {
+            // Check for hardcoded admin (for backward compatibility)
+            if ($username === ADMIN_USERNAME && $password === ADMIN_PASSWORD) {
+                $_SESSION['authenticated'] = true;
+                $_SESSION['user_id'] = 0;
+                $_SESSION['username'] = $username;
+                $_SESSION['role'] = 'admin';
+                $_SESSION['ai_provider'] = 'google';
+                $_SESSION['ai_model'] = 'gemini-2.5-flash';
+                Logger::info("Admin logged in: $username");
+                header('Location: index.php');
+                exit;
+            } else {
+                $error = 'Invalid credentials';
+                Logger::info("Failed login attempt for user: $username");
+            }
+        }
     }
 }
 ?>
@@ -32,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login-container">
         <div class="login-box">
             <h1>Patent Analysis MVP</h1>
-            <p class="subtitle">Admin Login</p>
+            <p class="subtitle">Login</p>
 
             <?php if ($error): ?>
                 <div class="alert alert-error"><?php echo htmlspecialchars($error); ?></div>
@@ -53,9 +98,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
 
             <div class="login-info">
-                <p><small>MVP: Default credentials are admin/admin</small></p>
+                <p><small>New user? <a href="register.php">Register here</a></small></p>
+                <p><small>Admin: Default credentials are admin/admin</small></p>
             </div>
         </div>
     </div>
 </body>
 </html>
+

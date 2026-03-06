@@ -11,6 +11,9 @@ if (!isset($_SESSION['authenticated'])) {
 
 $db = Database::getInstance();
 
+// Check if user is admin
+$isAdmin = isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
+
 // Handle analysis deletion
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_analysis_id'])) {
     $analysisId = $_POST['delete_analysis_id'];
@@ -23,7 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_analysis_id'])
     }
 }
 
-$analyses = $db->getAllAnalyses();
+// Get analyses - admin sees all, regular users see their own
+if ($isAdmin) {
+    $analyses = $db->getAllAnalyses();
+} else {
+    $userId = $_SESSION['user_id'] ?? 0;
+    $analyses = $db->getUserAnalyses($userId);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +48,9 @@ $analyses = $db->getAllAnalyses();
             <h1>🔍 Patent Analysis MVP</h1>
             <div class="header-actions">
                 <span>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                <?php if ($isAdmin): ?>
+                <a href="admin_users.php" class="btn" style="background:#6c757d; color:white; padding:8px 12px; font-size:12px; margin-right:5px;">👥 Users</a>
+                <?php endif; ?>
                 <a href="diagnostics.php" class="btn" style="background:#6c757d; color:white; padding:8px 12px; font-size:12px; margin-right:5px;">🔧 Diagnostics</a>
                 <a href="ai_config.php" class="btn" style="background:#6c757d; color:white; padding:8px 12px; font-size:12px; margin-right:10px;">⚙️ AI Config</a>
                 <a href="logout.php" class="btn btn-logout">Logout</a>
